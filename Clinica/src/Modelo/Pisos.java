@@ -3,10 +3,7 @@ package Modelo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author nobody
- */
+
 public class Pisos {
     private int numpiso;
     private Cuidados Intensivos;
