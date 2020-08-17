@@ -20,11 +20,11 @@ public class Main {
         int opc,claveCom;
         
          do{
-            opc=ioData.solicitarEntero("Bienvenido al menú principal. "+
-                                        "1.Menú Administrador "+
-                                        "2.Menú Recepción "+
-                                        "3.Menú Médico "+
-                                        "4.Salir "+ 
+            opc=ioData.solicitarEntero("Bienvenido al menú principal. \n "+
+                                        "\n1.Menú Administrador "+
+                                        "\n2.Menú Recepción "+
+                                        "\n3.Menú Médico "+
+                                        "\n4.Salir "+ 
                                         "\n\n.Digite la opción que desee ");
         switch(opc){
             case 1:
@@ -78,7 +78,7 @@ public class Main {
                 default: ioData.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
-        }while(opc!=2);
+        }while(opc!=4);
         
     }
 

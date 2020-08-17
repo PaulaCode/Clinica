@@ -19,7 +19,7 @@ public class Proceso {
         do{
             opc=ioData.solicitarEntero("1.Cambiar clave "+
 
-                                   "2.Atender paciente ");
+                                   "\n2.Atender paciente ");
 
         switch(opc){
             case 1:
