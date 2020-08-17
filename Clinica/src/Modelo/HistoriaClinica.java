@@ -11,6 +11,10 @@ public class HistoriaClinica {
     private Medico Medicoencargado;
     private String Descripcion;
 
+    public HistoriaClinica()
+    {
+        
+    }
     public HistoriaClinica(String FechaHospitalizacion, Medico Medicoencargado, String Descripcion) {
         this.FechaHospitalizacion = FechaHospitalizacion;
         this.Medicoencargado = Medicoencargado;
@@ -45,6 +49,7 @@ public class HistoriaClinica {
     public String toString() {
         return "Fecha Hospitalizacion=" + FechaHospitalizacion + "Medico encargado:" + Medicoencargado.getNombre() + "\n Descripcion=" + Descripcion +"\n";
     }
+    
     
     
 }

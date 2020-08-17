@@ -3,15 +3,12 @@ package Modelo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author frealgagu
- */
 
 public class Paciente extends Persona {
     private Persona acompañante;
     private ArrayList <HistoriaClinica> historiaclinica = new  ArrayList<>();
     private int Tipobeneficio;
+    private EPS eps;
     public Paciente() {
     }
 
@@ -49,6 +46,13 @@ public class Paciente extends Persona {
         
         this.historiaclinica.add(historiaclinica);
     }
+    public EPS getEps() {
+        return eps;
+    }
+
+    public void setEps(EPS eps) {
+        this.eps = eps;
+    }
     @Override
     public String toString(){
         
@@ -75,5 +79,7 @@ public class Paciente extends Persona {
         }
         return mensaje;
     }
+
+
     
 }
