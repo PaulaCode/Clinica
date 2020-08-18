@@ -1,3 +1,5 @@
+package Modelo;
+
 import Vista.InOut;
 import java.io.*;
 import java.util.*;
