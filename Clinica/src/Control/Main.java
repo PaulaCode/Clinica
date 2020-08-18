@@ -1,8 +1,18 @@
 
 package Control;
 
+import Modelo.Cuidados;
+import Modelo.EPS;
+import Modelo.Hospital;
+import Modelo.Medico;
+import Modelo.Paciente;
+import Modelo.Pisos;
 import Modelo.Proceso;
 import Vista.InOut;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -11,6 +21,7 @@ public class Main {
      private static int claveAdmin,claveRec,claveMedico;
      private static String nombre = " ";
      static  Proceso proceso = new Proceso();
+    
     public static void main(String[] args) {
         
         
@@ -76,7 +87,10 @@ public class Main {
                }
                
                break;
-                
+            case 4:
+                crearArchivo(Proceso.hospitalproceso);
+                System.exit(0);
+                break;
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
@@ -145,7 +159,77 @@ public class Main {
          while(opcion!=5);
        }
         
+public static void crearArchivo(Hospital objhospital) {
+                ArrayList <Medico> medicos = objhospital.getMedicos();
+                ArrayList <Paciente> pacientes = objhospital.getPacientes();
+                ArrayList <Paciente> pacienteshistorial = objhospital.getRegistro_paciente();
+                ArrayList <EPS> epshospital = objhospital.getEps();
+                ArrayList <Pisos> pisoshospital = objhospital.getPisos();
+                Cuidados cuidados = new Cuidados(); 
+		FileWriter flwriter = null;
+		try {
+			//crea el flujo para escribir en el archivo
+			flwriter = new FileWriter("hospital.txt",false);
+			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+                           bfwriter.write( "%");
+			for ( Medico medico : medicos ) {
+				//escribe los datos en el archivo
+				bfwriter.write(medico.getId() + "," + medico.getEdad() + "," + medico.getNombre()
+						+ "," + medico.getApellidos() + "," + medico.getTelefono()+ "," 
+                                                 + medico.getCorreo()+   ","+ medico.getEspecializacion()+ "," +medico.getCarnet()+   "\n");
+                                
+			}
+                        bfwriter.write("%");
+                        for(Paciente paciente : pacientes){
+                            bfwriter.write(paciente.getId()+","+paciente.getEdad()+","+paciente.getNombre()+","+paciente.getApellidos()+","+paciente.getTelefono()+","+paciente.getCorreo()+","+paciente.getAcompañante());
+                            
+                        }
+                        bfwriter.write("%");
+                          for(Pisos pisos : pisoshospital ){
+                            bfwriter.write(pisos.getNumpiso()+",");
+                            if(pisos.getIntensivos()== null){
+                                 bfwriter.write("null"+",");
+                            }else{
+                                
+                                bfwriter.write(pisos.getIntensivos().getCantidadDecamas()+","+pisos.getIntensivos().getOcupacion());
+                            }
+                            if(pisos.getIntermedios()== null){
+                                 bfwriter.write("null"+",");
+                            }else{
+                                
+                                bfwriter.write(pisos.getIntermedios().getCantidadDecamas()+","+pisos.getIntermedios().getOcupacion());
+                            }
+                             if(pisos.getRecuperacion()== null){
+                                 bfwriter.write("null"+",");
+                            }else{
+                                
+                                bfwriter.write(pisos.getRecuperacion().getCantidadDecamas()+","+pisos.getIntermedios().getOcupacion());
+                            }
+                            
+                        }
+                          for(EPS eps : epshospital){
+                              bfwriter.write(eps.getNombre()+","+eps.getCodigo());
+                              
+                          }
+			//cierra el buffer intermedio
+			bfwriter.close();
+			System.out.println("Archivo de medicos creado satisfactoriamente..");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (flwriter != null) {
+				try {//cierra el flujo principal
+					flwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 
- }
+}
+ 
 
