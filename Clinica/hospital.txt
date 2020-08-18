@@ -1,0 +1,2 @@
+%1234,23,jose,carlos,432121,jose123@gmal,terapeuta,54321
+%%saludtotal,43231
