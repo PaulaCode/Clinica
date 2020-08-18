@@ -151,7 +151,7 @@ public class Proceso {
                obj_paciente.setTipobeneficio(ioData.solicitarEntero("TIPO AFILIADO\n  1.Cotizante\n2.Beneficiario\n\nOpción no encontrada\nDigite el tipo de afiliado"));
             }
         }
-        asignarCama();
+        asignarCama(obj_paciente);
         hospitalproceso.setPaciente(obj_paciente);
         
     }
@@ -243,7 +243,7 @@ public class Proceso {
         }
         obj_persona.setHistoria(obj_historia);
     }
-    public void asignarCama()
+    public void asignarCama(Paciente obj_paciente)
     {
         int piso = ioData.solicitarEntero(hospitalproceso.mostrarPisos()+"\n\nDigite el número del piso");
         while(!validarNumeroPiso(piso))
@@ -258,15 +258,46 @@ public class Proceso {
         Pisos obj_piso = returnPiso(piso);
          switch (tipo) {
              case 1:
+                 obj_paciente.setTipo_cuidado(obj_piso.getIntensivos());
                  obj_piso.getIntensivos().setOcupacion((obj_piso.getIntensivos().getOcupacion()+1));
                  break;
              case 2:
+                 obj_paciente.setTipo_cuidado(obj_piso.getIntermedios());
                  obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion()+1);
                  break;
              case 3:
+                 obj_paciente.setTipo_cuidado(obj_piso.getRecuperacion());
                  obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion()+1);
                  break;
          }
+    }
+    public void otorgarSalida()
+    {
+        int id = ioData.solicitarEntero("Digite la identificación del paciente");
+        if(validarPaciente(id))
+        {
+          Paciente objpaciente = returnPaciente(id);
+          int numpiso = returnNumeroPiso(objpaciente.getTipo_cuidado());
+          Pisos obj_piso = returnPiso(numpiso);
+          int tipo = returnTipoCuidado(objpaciente.getTipo_cuidado());
+             switch (tipo) {
+             case 1:
+                 obj_piso.getIntensivos().setOcupacion((obj_piso.getIntensivos().getOcupacion()-1));
+                 break;
+             case 2:
+
+                 obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion()-1);
+                 break;
+             case 3:
+                 obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion()-1);
+                 break;
+            }
+           hospitalproceso.getPacientes().remove(returnPosPaciente(id));
+        }
+        else
+        {
+            ioData.mostrarResultado("Paciente no encontrado");
+        }
     }
     public void mostrarPacientes()
     {
@@ -356,6 +387,35 @@ public class Proceso {
         }
         return -1;
     }
+    public int returnNumeroPiso(Cuidados objCuidado)
+    {
+      for(Pisos objpiso: hospitalproceso.getPisos())
+        {
+            if(objpiso.getIntensivos()==objCuidado||objpiso.getIntermedios()==objCuidado||objpiso.getRecuperacion()==objCuidado)
+            {
+               return objpiso.getNumpiso();
+            }
+        }
+        return -1;  
+    }
+    public int returnTipoCuidado(Cuidados objCuidado)
+    {
+        for(Pisos objpiso: hospitalproceso.getPisos())
+        {
+            if(objpiso.getIntensivos()==objCuidado)
+            {
+               return 1;
+            }
+            else if(objpiso.getIntermedios()==objCuidado)
+            {
+                return 2;
+            }
+            else if(objpiso.getRecuperacion()==objCuidado){
+               return 3;
+            }
+        }
+        return -1;    
+    }
     public Medico returnMedico(int carnet)
     {
         for(Medico objmedico: hospitalproceso.getMedicos())
@@ -417,6 +477,17 @@ public class Proceso {
             }
         }
         return null; 
+    }
+    public int returnPosPaciente(int id)
+    {
+       for(int i =0;i<hospitalproceso.getPacientes().size();i++)
+        {
+            if(hospitalproceso.getPacientes().get(i).getId()==id)
+            {
+                return i;
+            }
+        }
+        return -1;     
     }
     public boolean validarPaciente(int id)
     {
