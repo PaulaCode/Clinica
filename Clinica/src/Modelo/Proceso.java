@@ -71,7 +71,7 @@ public class Proceso {
             case 1:
                 String nombre = ioData.solicitarNombre("Digite el nombre de la EPS");
                 int codigo = ioData.solicitarEntero("Digite el código de la EPS");
-               while(verificarCodigo(codigo, eps) == -1){
+               while(verificarCodigo(codigo, eps) != -1){
                    codigo = ioData.solicitarEntero("El código está repetido. \nIngrese el código de la EPS: ");
                }
                eps.add(new EPS(nombre,codigo));
