@@ -1,18 +1,16 @@
 
 package Modelo;
 
-/**
- *
- * @author nobody
- */
+
 public class Cuidados {
     private int CantidadDecamas;
-
+    private int ocupacion;
     public Cuidados() {
     }
 
-    public Cuidados(int CantidadDecamas) {
+    public Cuidados(int CantidadDecamas,int ocupacion) {
         this.CantidadDecamas = CantidadDecamas;
+        this.ocupacion = ocupacion;
     }
 
     public int getCantidadDecamas() {
@@ -23,9 +21,17 @@ public class Cuidados {
         this.CantidadDecamas = CantidadDecamas;
     }
 
+    public int getOcupacion() {
+        return ocupacion;
+    }
+
+    public void setOcupacion(int ocupacion) {
+        this.ocupacion = ocupacion;
+    }
+
     @Override
     public String toString() {
-        return  "Cantidad De camas: " + CantidadDecamas;
+        return  "Cantidad De camas: " + CantidadDecamas +" Ocupación : "+ocupacion+" Disponibles: "+ (CantidadDecamas-ocupacion)+"\n";
     }
     
     

@@ -131,6 +131,51 @@ public class Hospital {
         }
         return mensaje;
     }
-   
+    public String mostrarMedicosE()
+    {
+        String mensaje="";
+         if(!Medicos.isEmpty())
+        {
+          for(Medico obj_medico: Medicos)
+            {
+           mensaje+= obj_medico.mensajeMedicos();
+            }   
+        }
+        else
+            mensaje+= " No hay médicos registrados";
+        return mensaje;
+    }
+    public String mostrarEps()
+    {
+        String mensaje="";
+        if(!eps.isEmpty())
+        {
+            for(EPS epsobj : eps)
+            {
+                mensaje+=epsobj.toString();
+            }
+        }
+        else
+        {
+            mensaje+="No hay eps registradas";
+        }
+        return mensaje;
+    }
+    public String mostrarPisos()
+    {
+        String mensaje ="";
+        if(!pisos.isEmpty())
+        {
+            for(Pisos objpiso:pisos)
+            {
+                mensaje+= objpiso.toString();
+            }
+        }
+        else
+        {
+            mensaje+="No hay pisos registrados";
+        }
+        return mensaje;
+    }
     
 }

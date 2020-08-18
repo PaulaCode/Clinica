@@ -3,15 +3,13 @@ package Modelo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author frealgagu
- */
 
 public class Paciente extends Persona {
     private Persona acompañante;
     private ArrayList <HistoriaClinica> historiaclinica = new  ArrayList<>();
     private int Tipobeneficio;
+    private EPS eps;
+    private Cuidados tipo_cuidado;
     public Paciente() {
     }
 
@@ -49,9 +47,25 @@ public class Paciente extends Persona {
         
         this.historiaclinica.add(historiaclinica);
     }
+    public EPS getEps() {
+        return eps;
+    }
+
+    public void setEps(EPS eps) {
+        this.eps = eps;
+    }
+
+    public Cuidados getTipo_cuidado() {
+        return tipo_cuidado;
+    }
+
+    public void setTipo_cuidado(Cuidados tipo_cuidado) {
+        this.tipo_cuidado = tipo_cuidado;
+    }
+    
     @Override
     public String toString(){
-        
+        Proceso obj_proceso= new Proceso();
         String mensaje="";
         mensaje+= super.toString();
         if(acompañante!= null){
@@ -73,7 +87,10 @@ public class Paciente extends Persona {
             mensaje += "No aplica para el descuento por que no tiene eps ";
             
         }
+        mensaje+= "\nPiso: "+obj_proceso.returnNumeroPiso(tipo_cuidado);
         return mensaje;
     }
+
+
     
 }
