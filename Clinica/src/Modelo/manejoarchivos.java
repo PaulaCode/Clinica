@@ -59,7 +59,7 @@ public class manejoarchivos
             FileReader fr=new FileReader("pacientes.txt");
             BufferedReader br=new BufferedReader(fr);
             String cadena;
-            while((cadena=br.readLine())!=null) //cuando el la siguiente linea leida no halla nada significa que termino de ller los datos del archivo
+            while((cadena=br.readLine())!= null) //cuando el la siguiente linea leida no halla nada significa que termino de ller los datos del archivo
             {
                 ioData.mostrarResultado(""+cadena); 
             }

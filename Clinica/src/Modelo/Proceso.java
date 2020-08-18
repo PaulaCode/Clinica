@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 public class Proceso {
     
      InOut ioData = new InOut();
-    private Hospital hospitalproceso = new Hospital();
+    public static Hospital hospitalproceso = new Hospital();
     private ArrayList<Persona> lista_personas = new ArrayList<>();
     public void menumedico (){
         int opc;
@@ -71,10 +71,10 @@ public class Proceso {
             case 1:
                 String nombre = ioData.solicitarNombre("Digite el nombre de la EPS");
                 int codigo = ioData.solicitarEntero("Digite el código de la EPS");
-               while(verificarCodigo(codigo, eps) == -1){
+               while(verificarCodigo(codigo, eps) != -1){
                    codigo = ioData.solicitarEntero("El código está repetido. \nIngrese el código de la EPS: ");
                }
-               eps.add(new EPS(nombre,codigo));
+               hospitalproceso.setNombreEps(new EPS(nombre,codigo));
                
                 break;
                 
@@ -84,7 +84,7 @@ public class Proceso {
                 acumulador+= ("\n\nDigite el número de la EPS que desea eliminar.");
                 int numero = ioData.solicitarEntero(acumulador);
                 numero = returnPosicion(numero, eps);
-                eps.remove(numero);
+                hospitalproceso.getEps().remove(numero);
                 
                 break;
             
@@ -98,7 +98,7 @@ public class Proceso {
                 String correo = ioData.solicitarNombre("Digite el correo del médico.");
                 String especializacion = ioData.solicitarNombre("Escriba en qué se especializa el médico.");
                 int carnet = ioData.solicitarEntero("Digite el carnet");
-               medico.add(new Medico(id,edad, nombre, apellidos, telefono, correo, especializacion,carnet));
+               hospitalproceso.getMedicos().add(new Medico(id,edad, nombre, apellidos, telefono, correo, especializacion,carnet));
                 
                 break;
                 
@@ -500,4 +500,5 @@ public class Proceso {
         }
         return false;
     }
+    
 }
