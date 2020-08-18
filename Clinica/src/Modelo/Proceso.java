@@ -146,10 +146,11 @@ public class Proceso {
               obj_paciente.setEps(returnEps(codigo_eps));
            }
             obj_paciente.setTipobeneficio(ioData.solicitarEntero("TIPO AFILIADO\n  1.Cotizante\n2.Beneficiario\n\nDigite el tipo de afiliado"));
-            while(obj_paciente.getTipobeneficio()!=1||obj_paciente.getTipobeneficio()!=2)
+            while(obj_paciente.getTipobeneficio()<=0||obj_paciente.getTipobeneficio()>2)
             {
                obj_paciente.setTipobeneficio(ioData.solicitarEntero("TIPO AFILIADO\n  1.Cotizante\n2.Beneficiario\n\nOpción no encontrada\nDigite el tipo de afiliado"));
             }
+            
         }
         asignarCama(obj_paciente);
         hospitalproceso.setPaciente(obj_paciente);
@@ -189,7 +190,6 @@ public class Proceso {
         }
         obj_persona.setCorreo(ioData.solicitarNombre("Digite el correo electrónico"));
        paciente.setAcompañante(obj_persona);
-        lista_personas.add(obj_persona); 
         
     }
     public void insertarPersona( Persona obj_persona)
@@ -225,10 +225,10 @@ public class Proceso {
     public void insertarHistoria(Paciente obj_persona)
     {
         HistoriaClinica obj_historia = new HistoriaClinica();
-        obj_historia.setFechaHospitalizacion("Digite la fecha de hospitalización en formato dd-mm-yyyy");
+        obj_historia.setFechaHospitalizacion(ioData.solicitarNombre("Digite la fecha de hospitalización en formato dd-mm-yyyy"));
         while(!validarFecha(obj_historia.getFechaHospitalizacion()))
         {
-         obj_historia.setFechaHospitalizacion("ERROR!\nDigite la fecha de hospitalización en formato dd-mm-yyyy");  
+         obj_historia.setFechaHospitalizacion(ioData.solicitarNombre("ERROR!\nDigite la fecha de hospitalización en formato dd-mm-yyyy"));  
         }
         int carnet = ioData.solicitarEntero(hospitalproceso.mostrarMedicosE()+"\n\n Digite el carnet del médico");
         while(returnMedico(carnet)==null)
@@ -236,10 +236,10 @@ public class Proceso {
           carnet = ioData.solicitarEntero("El médico ingresado no se encuentra\n"+hospitalproceso.mostrarMedicosE()+"\n\n Digite el carnet del médico");
         }
         obj_historia.setMedicoencargado(returnMedico(carnet));
-        obj_historia.setDescripcion("Digite la causa por la que el paciente fue hospitalizado");
+        obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         while(validarNombre(obj_historia.getDescripcion()))
         {
-          obj_historia.setDescripcion("Digite la causa por la que el paciente fue hospitalizado");
+          obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         }
         obj_persona.setHistoria(obj_historia);
     }
@@ -340,14 +340,20 @@ public class Proceso {
             return false;
         }
     }
-    public boolean validarParentesco(String apellido1,String apellido2)
+    public boolean validarParentesco(String apellidopaciente,String apellidoencargado)
     {
-            StringTokenizer toke = new StringTokenizer(apellido2);
+            StringTokenizer toke = new StringTokenizer(apellidopaciente);
+            StringTokenizer toke2 = new StringTokenizer(apellidoencargado);
+
             while(toke.hasMoreTokens())
             {
-                if(apellido1.equals(toke))
-                return true;
+                if(toke2.toString().equalsIgnoreCase(toke.toString()))
+                {
+                  return true;  
+                }
+      
                 toke.nextToken();
+                toke2.nextToken();
             }
             return false;
     }

@@ -21,13 +21,13 @@ public class Main {
      private static int claveAdmin,claveRec,claveMedico;
      private static String nombre = " ";
      static  Proceso proceso = new Proceso();
-    
+     static boolean bandAdmin = false, bandRec= false, bandMedico = false;
+       
+       
     public static void main(String[] args) {
         
         
-        boolean bandAdmin = false, bandRec= false, bandMedico = false;
-       
-        
+ 
         int opc,claveCom;
         
          do{
@@ -50,26 +50,24 @@ public class Main {
                     while(claveAdmin != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del administrador correctamente: ");
                     }
-                    proceso.menuAdministrador();
+                 
                }
-               
+                  proceso.menuAdministrador();
                break;
             case 2: 
                 
                 if(bandRec == false){
-                   claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
-                   claveRec = claveCom;
+                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
                    bandRec = true;
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
                     while(claveRec != claveCom){
-                   claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");
-                    menuRepcionista();
+                   claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
                     }
                     
                     
                }
-               
+                menuRepcionista(); 
                break;
                 
             case 3:
