@@ -11,9 +11,12 @@ import Modelo.Pisos;
 import Modelo.Proceso;
 import Vista.InOut;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Main {
@@ -98,10 +101,12 @@ public class Main {
                 crearArchivo(Proceso.hospitalproceso);
                 System.exit(0);
                 break;
+            case 5:
+                
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
-        }while(opc!=4);
+        }while(opc!=5);
         
     }
 
@@ -176,6 +181,7 @@ public static void crearArchivo(Hospital objhospital) {
                             }
                             
                         }
+                            bfwriter.write("%");
                           for(EPS eps : epshospital){
                               bfwriter.write(eps.getNombre()+","+eps.getCodigo());
                               
@@ -234,7 +240,61 @@ public static void crearArchivoRegistro(Hospital objhospital) {
 			}
 		}
 	}
-
+public static void leerArchivo() {
+		// crea el flujo para leer desde el archivo
+		File file = new File("hospital.txt");
+		ArrayList <Paciente>listadepacientes= new ArrayList<Paciente>();
+                ArrayList <Medico> medicos = new ArrayList<Medico>();
+		Scanner scanner;
+             
+		try {
+			//se pasa el flujo al objeto scanner
+                        
+			scanner = new Scanner(file);
+			while (scanner.hasNextLine()) {
+				// el objeto scanner lee linea a linea desde el archivo
+				String linea = scanner.nextLine();
+				Scanner delimitar = new Scanner(linea);
+                                String objetos = scanner.nextLine();
+                                Scanner delimitarObjetos = new Scanner(objetos);
+				//se usa una expresión regular
+				//que valida que antes o despues de una coma (,) exista cualquier cosa
+				//parte la cadena recibida cada vez que encuentre una coma
+                                  delimitar.useDelimiter("\\s*,\\s*");
+                                do{
+                                  
+				Medico e= new Medico();
+				e.setId(delimitar.nextInt());
+				e.setEdad(delimitar.nextInt());
+				e.setNombre(delimitar.next());
+                                e.setApellidos(delimitar.next());
+				e.setTelefono(delimitar.nextInt());
+				e.setCorreo(delimitar.next());
+                                e.setEspecializacion(delimitar.next());
+                                e.setCarnet(delimitar.nextInt());
+				medicos.add(e);
+                                    System.out.println(medicos.toString());
+                                }while(linea.charAt(0) != '%' );
+                                
+                                /*do {
+                                   
+                                    Paciente f = new 
+                                    
+                                }while(linea.charAt(0) != '%' );*/
+                                
+                                
+				
+			}
+			//se cierra el ojeto scanner
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		for(int i=0;i<medicos.size();i++){
+                    
+                }
+                        
+	}
 }
  
 
