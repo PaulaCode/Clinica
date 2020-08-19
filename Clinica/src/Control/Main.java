@@ -3,6 +3,7 @@ package Control;
 
 import Modelo.Cuidados;
 import Modelo.EPS;
+import Modelo.HistoriaClinica;
 import Modelo.Hospital;
 import Modelo.Medico;
 import Modelo.Paciente;
@@ -172,7 +173,7 @@ public static void crearArchivo(Hospital objhospital) {
 			flwriter = new FileWriter("hospital.txt",false);
 			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-                           bfwriter.write( "%");
+                           bfwriter.write("%");
 			for ( Medico medico : medicos ) {
 				//escribe los datos en el archivo
 				bfwriter.write(medico.getId() + "," + medico.getEdad() + "," + medico.getNombre()
@@ -228,7 +229,44 @@ public static void crearArchivo(Hospital objhospital) {
 			}
 		}
 	}
-
+public static void crearArchivoRegistro(Hospital objhospital) {
+              ArrayList<Paciente> pacientes =  objhospital.getPacientes();
+              
+		FileWriter flwriter = null;
+		try {
+			//crea el flujo para escribir en el archivo
+			flwriter = new FileWriter("registropacientes.txt",false);
+			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+                        bfwriter.write( "%");
+                        for(Paciente paciente : pacientes){
+                   
+                            if(paciente.getHistoriaclinica()!= null ){
+                                for(HistoriaClinica historias : paciente.getHistoriaclinica() ){
+                                  
+                                  bfwriter.write(paciente.getId()+","+paciente.getNombre()+","+historias.getFechaHospitalizacion()+","+historias.getDescripcion()+","+historias.getMedicoencargado());
+                                }
+                                
+                                
+                            }
+                        }
+                        bfwriter.write("%");
+                       
+			//cierra el buffer intermedio
+			bfwriter.close();
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (flwriter != null) {
+				try {//cierra el flujo principal
+					flwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 }
  
