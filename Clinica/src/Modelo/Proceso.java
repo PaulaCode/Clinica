@@ -7,6 +7,7 @@ import Control.Main;
 import Vista.InOut;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 
@@ -123,7 +124,46 @@ public class Proceso {
         
         
     }
-  
+   public  void menuRepcionista()
+    {
+            String mensaje="Menú recepción\n";
+            mensaje+="\n1. Ingreso Paciente\n"
+                    +"2. Otorgar salida\n"+
+                    "3. Mostrar Pacientes\n"
+                    +"4. Consultar Paciente\n"
+                    +"5. Salir ";
+            int opcion=0;  
+            do
+            {
+             opcion = ioData.solicitarEntero(mensaje+"\n\nDigite una opción");
+                switch(opcion)
+               {
+                 case 1:{
+                     ingresarPaciente();
+                     break;
+                 }
+                 case 2:{
+                     break;
+                 }
+                 case 3:{
+                     mostrarPacientes();
+                     break;
+                 }
+                 case 4:{
+                     buscarPaciente();
+                     break;
+                 }
+                 case 5:{
+                     break;
+                 }
+                 default:{
+                     ioData.mostrarResultado("Opción incorrecta");
+                     break;
+                 }
+            }
+         }
+         while(opcion!=5);
+       }
     public void ingresarPaciente()
     {
         Persona persona_encargada = new Persona();
@@ -176,10 +216,10 @@ public class Proceso {
             obj_persona.setApellidos(ioData.solicitarNombre("Debe digitar 2 Apellidos\nDigite el apellido de la persona"));
             else
             obj_persona.setApellidos(ioData.solicitarNombre("Deben ser familiares \nDigite el apellido de la persona"));
-    
+
         }
         obj_persona.setEdad(ioData.solicitarEntero("Digite la edad de la persona"));
-        while(obj_persona.getEdad()<=0||obj_persona.getEdad()>=130)
+        while(obj_persona.getEdad()<=0||obj_persona.getEdad()>=130||obj_persona.getEdad()<18||obj_persona.getEdad()>=70)
         {
             obj_persona.setEdad(ioData.solicitarEntero("Digite la edad de la persona"));  
         }
@@ -342,18 +382,26 @@ public class Proceso {
     }
     public boolean validarParentesco(String apellidopaciente,String apellidoencargado)
     {
+        //sierra alba  lopez sierra
+            if(apellidopaciente.equalsIgnoreCase(apellidoencargado))
+            {
+                return true;
+            }
+            
             StringTokenizer toke = new StringTokenizer(apellidopaciente);
             StringTokenizer toke2 = new StringTokenizer(apellidoencargado);
-
+            String tokeanterior = toke2.nextToken();//lopez
+            String tokeanterior2 = toke.nextToken();//sierra
+            String apellidop1 = "",apellidop2 = "";
+     
             while(toke.hasMoreTokens())
             {
-                if(toke2.toString().equalsIgnoreCase(toke.toString()))
+                 apellidop1 = toke.nextToken();//sierra   alba
+                 apellidop2 = toke2.nextToken();//lopez   sierra    
+                if(apellidop1.equalsIgnoreCase(apellidop2)||tokeanterior.equalsIgnoreCase(apellidop1)||tokeanterior2.equalsIgnoreCase(apellidop2)||tokeanterior2.equalsIgnoreCase(tokeanterior))
                 {
                   return true;  
                 }
-      
-                toke.nextToken();
-                toke2.nextToken();
             }
             return false;
     }

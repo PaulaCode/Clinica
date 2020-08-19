@@ -26,8 +26,8 @@ public class Main {
        
     public static void main(String[] args) {
         
-        
- 
+       // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
+       //   proceso.ingresarPaciente();
         int opc,claveCom;
         
          do{
@@ -67,7 +67,7 @@ public class Main {
                     
                     
                }
-                menuRepcionista(); 
+                proceso.menuRepcionista(); 
                break;
                 
             case 3:
@@ -116,46 +116,7 @@ public class Main {
         return nombre;
     }
     
-    public static void menuRepcionista()
-    {
-            String mensaje="Menú recepción\n";
-            mensaje+="\n1. Ingreso Paciente\n"
-                    +"2. Otorgar salida\n"+
-                    "3. Mostrar Pacientes\n"
-                    +"4. Consultar Paciente\n"
-                    +"5. Salir ";
-            int opcion=0;  
-            do
-            {
-             opcion = inOut.solicitarEntero(mensaje+"\n\nDigite una opción");
-                switch(opcion)
-               {
-                 case 1:{
-                     proceso.ingresarPaciente();
-                     break;
-                 }
-                 case 2:{
-                     break;
-                 }
-                 case 3:{
-                     proceso.mostrarPacientes();
-                     break;
-                 }
-                 case 4:{
-                     proceso.buscarPaciente();
-                     break;
-                 }
-                 case 5:{
-                     break;
-                 }
-                 default:{
-                     inOut.mostrarResultado("Opción incorrecta");
-                     break;
-                 }
-            }
-         }
-         while(opcion!=5);
-       }
+   
         
 public static void crearArchivo(Hospital objhospital) {
                 ArrayList <Medico> medicos = objhospital.getMedicos();
