@@ -44,6 +44,7 @@ public class Main {
                    claveAdmin = claveCom;
                    String nombreH = inOut.solicitarNombre("Digite el nombre del hospital: ");
                    nombre = nombreH;
+                   proceso.menuAdministrador();
                    bandAdmin = true;
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del administrador: ");
@@ -59,6 +60,7 @@ public class Main {
                 if(bandRec == false){
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
                    claveRec = claveCom;
+                   menuRepcionista();
                    bandRec = true;
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
@@ -77,6 +79,7 @@ public class Main {
                 if(bandMedico == false){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
                    claveMedico = claveCom;
+                   proceso.menumedico();
                    bandMedico = true;
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
