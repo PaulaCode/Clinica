@@ -90,10 +90,8 @@ public class Proceso {
             
             case 3:
                 
-                String especializacion = ioData.solicitarNombre("Escriba en qué se especializa el médico.");
-                int carnet = ioData.solicitarEntero("Digite el carnet");
-             
-                
+                ingresarMedico();
+
                 break;
                 
             case 4:
@@ -161,8 +159,13 @@ public class Proceso {
        Medico obj_Medico = new Medico();
        insertarPersona(obj_Medico);
        
-       
-       
+       String especializacion = ioData.solicitarNombre("Escriba en qué se especializa el médico.");
+       int carnet = ioData.solicitarEntero("Digite el carnet");
+       while(verificaciones.returnCarnet(carnet)!= -1){
+           carnet = ioData.solicitarEntero("El carnet está repetido. \nDigite el carnet");
+       }
+       hospitalproceso.setMedico(obj_Medico);
+        lista_personas.add(obj_Medico);
    }
    
     public void ingresarPaciente()
@@ -274,7 +277,7 @@ public class Proceso {
         while(!verificaciones.validarFecha(obj_historia.getFechaHospitalizacion()))
 
         obj_historia.setFechaHospitalizacion(ioData.solicitarNombre("Digite la fecha de hospitalización en formato dd-mm-yyyy"));
-        while(!validarFecha(obj_historia.getFechaHospitalizacion()))
+        while(!verificaciones.validarFecha(obj_historia.getFechaHospitalizacion()))
 
         {
          obj_historia.setFechaHospitalizacion(ioData.solicitarNombre("ERROR!\nDigite la fecha de hospitalización en formato dd-mm-yyyy"));  
@@ -289,9 +292,9 @@ public class Proceso {
         obj_historia.setDescripcion("Digite la causa por la que el paciente fue hospitalizado");
         while(verificaciones.validarNombre(obj_historia.getDescripcion()))
 
-        obj_historia.setMedicoencargado(returnMedico(carnet));
+        obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
         obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
-        while(validarNombre(obj_historia.getDescripcion()))
+        while(verificaciones.validarNombre(obj_historia.getDescripcion()))
 
         {
           obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
@@ -383,6 +386,8 @@ public class Proceso {
         return acumulador;
     }
 
+<<<<<<< HEAD
+=======
     public boolean validarFecha(String fecha)
     {
         try
@@ -571,5 +576,6 @@ public class Proceso {
         return false;
     }
 
+>>>>>>> 930c01531e0350b5c20f8a52ec1aa39efa1d0f51
     
 }
