@@ -21,13 +21,13 @@ public class Main {
      private static int claveAdmin,claveRec,claveMedico;
      private static String nombre = " ";
      static  Proceso proceso = new Proceso();
-    
+     static boolean bandAdmin = false, bandRec= false, bandMedico = false;
+       
+       
     public static void main(String[] args) {
         
-        
-        boolean bandAdmin = false, bandRec= false, bandMedico = false;
-       
-        
+       // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
+       //   proceso.ingresarPaciente();
         int opc,claveCom;
         
          do{
@@ -51,27 +51,30 @@ public class Main {
                     while(claveAdmin != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del administrador correctamente: ");
                     }
-                    proceso.menuAdministrador();
+                 
                }
-               
+                  proceso.menuAdministrador();
                break;
             case 2: 
                 
                 if(bandRec == false){
+
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
                    claveRec = claveCom;
-                   menuRepcionista();
+                   proceso.menuRepcionista();
+
+                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
+
                    bandRec = true;
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
                     while(claveRec != claveCom){
-                   claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");
-                    menuRepcionista();
+                   claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
                     }
                     
                     
                }
-               
+                proceso.menuRepcionista(); 
                break;
                 
             case 3:
@@ -121,46 +124,7 @@ public class Main {
         return nombre;
     }
     
-    public static void menuRepcionista()
-    {
-            String mensaje="Menú recepción\n";
-            mensaje+="\n1. Ingreso Paciente\n"
-                    +"2. Otorgar salida\n"+
-                    "3. Mostrar Pacientes\n"
-                    +"4. Consultar Paciente\n"
-                    +"5. Salir ";
-            int opcion=0;  
-            do
-            {
-             opcion = inOut.solicitarEntero(mensaje+"\n\nDigite una opción");
-                switch(opcion)
-               {
-                 case 1:{
-                     proceso.ingresarPaciente();
-                     break;
-                 }
-                 case 2:{
-                     break;
-                 }
-                 case 3:{
-                     proceso.mostrarPacientes();
-                     break;
-                 }
-                 case 4:{
-                     proceso.buscarPaciente();
-                     break;
-                 }
-                 case 5:{
-                     break;
-                 }
-                 default:{
-                     inOut.mostrarResultado("Opción incorrecta");
-                     break;
-                 }
-            }
-         }
-         while(opcion!=5);
-       }
+   
         
 public static void crearArchivo(Hospital objhospital) {
                 ArrayList <Medico> medicos = objhospital.getMedicos();
