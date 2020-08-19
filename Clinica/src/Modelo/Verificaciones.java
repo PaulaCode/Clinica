@@ -125,6 +125,19 @@ public class Verificaciones {
         }
         return null;
     }
+    
+    public int returnCarnet(int carnet){
+        
+        for(int i =0;i<hospitalproceso.getMedicos().size();i++)
+        {
+            if(hospitalproceso.getMedicos().get(i).getCarnet()==carnet)
+            {
+                return i;
+            }
+        }
+        return -1;   
+        
+    }
     public EPS returnEps(int codigo)
     {
         for(EPS objeps: hospitalproceso.getEps())
