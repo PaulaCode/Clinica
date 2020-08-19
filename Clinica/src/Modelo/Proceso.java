@@ -92,7 +92,7 @@ public class Proceso {
                 
                 String especializacion = ioData.solicitarNombre("Escriba en qué se especializa el médico.");
                 int carnet = ioData.solicitarEntero("Digite el carnet");
-               hospitalproceso.getMedicos().add(new Medico(id,edad, nombre, apellidos, telefono, correo, especializacion,carnet));
+             
                 
                 break;
                 
@@ -570,6 +570,6 @@ public class Proceso {
         }
         return false;
     }
->>>>>>> 342a2227d3ac52b4c736758aac12c53f606d0312
+
     
 }
