@@ -7,6 +7,7 @@ import Modelo.HistoriaClinica;
 import Modelo.Hospital;
 import Modelo.Medico;
 import Modelo.Paciente;
+import Modelo.Persona;
 import Modelo.Pisos;
 import Modelo.Proceso;
 import Vista.InOut;
@@ -33,7 +34,23 @@ public class Main {
        // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
        //   proceso.ingresarPaciente();
         int opc,claveCom;
-        
+        Paciente e= new Paciente();
+				e.setId(1234);
+				e.setEdad(23);
+				e.setNombre("jose");
+                                e.setApellidos("sancehz gomez");
+				e.setTelefono(1234);
+				e.setCorreo("josae23123");
+                                Proceso.hospitalproceso.setPaciente(e);
+                                Persona es= new Persona();
+				es.setId(1234);
+				es.setEdad(23);
+				es.setNombre("jose");
+                                es.setApellidos("sancehz gomez");
+				es.setTelefono(1234);
+				es.setCorreo("josae23123");
+                               // e.setAcompañante(es);
+                                
          do{
             opc=inOut.solicitarEntero("Bienvenido al menú principal. \n "+
                                         "\n1.Menú Administrador "+
@@ -102,7 +119,7 @@ public class Main {
                 System.exit(0);
                 break;
             case 5:
-                
+                leerArchivo();
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
@@ -145,47 +162,23 @@ public static void crearArchivo(Hospital objhospital) {
 			flwriter = new FileWriter("hospital.txt",false);
 			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-                           bfwriter.write("%");
-			for ( Medico medico : medicos ) {
-				//escribe los datos en el archivo
-				bfwriter.write(medico.getId() + "," + medico.getEdad() + "," + medico.getNombre()
-						+ "," + medico.getApellidos() + "," + medico.getTelefono()+ "," 
-                                                 + medico.getCorreo()+   ","+ medico.getEspecializacion()+ "," +medico.getCarnet()+   "\n");
-                                
-			}
-                        bfwriter.write("%");
+                      
+                       
                         for(Paciente paciente : pacientes){
-                            bfwriter.write(paciente.getId()+","+paciente.getEdad()+","+paciente.getNombre()+","+paciente.getApellidos()+","+paciente.getTelefono()+","+paciente.getCorreo()+","+paciente.getAcompañante());
+                            bfwriter.write(paciente.getId()+","+paciente.getEdad()+","+paciente.getNombre()+","+paciente.getApellidos()+","+paciente.getTelefono()+","+paciente.getCorreo()+",");
+                            if(paciente.getAcompañante() == null){
+                                bfwriter.write("null");
+                                
+                            }else{
+                                
+                                
+                                bfwriter.write(","+paciente.getAcompañante().getNombre()+","+paciente.getAcompañante().getApellidos()+","+paciente.getAcompañante().getId()+","+paciente.getAcompañante().getTelefono());
                             
-                        }
-                        bfwriter.write("%");
-                          for(Pisos pisos : pisoshospital ){
-                            bfwriter.write(pisos.getNumpiso()+",");
-                            if(pisos.getIntensivos()== null){
-                                 bfwriter.write("null"+",");
-                            }else{
-                                
-                                bfwriter.write(pisos.getIntensivos().getCantidadDecamas()+","+pisos.getIntensivos().getOcupacion());
-                            }
-                            if(pisos.getIntermedios()== null){
-                                 bfwriter.write("null"+",");
-                            }else{
-                                
-                                bfwriter.write(pisos.getIntermedios().getCantidadDecamas()+","+pisos.getIntermedios().getOcupacion());
-                            }
-                             if(pisos.getRecuperacion()== null){
-                                 bfwriter.write("null"+",");
-                            }else{
-                                
-                                bfwriter.write(pisos.getRecuperacion().getCantidadDecamas()+","+pisos.getIntermedios().getOcupacion());
                             }
                             
                         }
-                            bfwriter.write("%");
-                          for(EPS eps : epshospital){
-                              bfwriter.write(eps.getNombre()+","+eps.getCodigo());
-                              
-                          }
+                       
+                          
 			//cierra el buffer intermedio
 			bfwriter.close();
 			System.out.println("Archivo de medicos creado satisfactoriamente..");
@@ -255,33 +248,37 @@ public static void leerArchivo() {
 				// el objeto scanner lee linea a linea desde el archivo
 				String linea = scanner.nextLine();
 				Scanner delimitar = new Scanner(linea);
-                                String objetos = scanner.nextLine();
-                                Scanner delimitarObjetos = new Scanner(objetos);
+                               
 				//se usa una expresión regular
 				//que valida que antes o despues de una coma (,) exista cualquier cosa
 				//parte la cadena recibida cada vez que encuentre una coma
                                   delimitar.useDelimiter("\\s*,\\s*");
-                                do{
+                                
                                   
-				Medico e= new Medico();
+				Paciente e= new Paciente();
 				e.setId(delimitar.nextInt());
 				e.setEdad(delimitar.nextInt());
+                                
 				e.setNombre(delimitar.next());
                                 e.setApellidos(delimitar.next());
 				e.setTelefono(delimitar.nextInt());
 				e.setCorreo(delimitar.next());
-                                e.setEspecializacion(delimitar.next());
-                                e.setCarnet(delimitar.nextInt());
-				medicos.add(e);
-                                    System.out.println(medicos.toString());
-                                }while(linea.charAt(0) != '%' );
-                                
-                                /*do {
-                                   
-                                    Paciente f = new 
-                                    
-                                }while(linea.charAt(0) != '%' );*/
-                                
+                                String a =(delimitar.next());
+                               
+                               if(a.equalsIgnoreCase("null")){
+                                   System.out.println("hola");
+                                   e.setAcompañante(null);
+                               }else{
+                                 Persona acompañante = new Persona();
+                                 acompañante.setNombre(delimitar.next());
+                                 acompañante.setApellidos(delimitar.next());
+                                 acompañante.setId(delimitar.nextInt());
+                                 acompañante.setTelefono(delimitar.nextInt());
+                                        e.setAcompañante(acompañante);
+                               }
+				listadepacientes.add(e);
+                                      
+                             
                                 
 				
 			}
@@ -290,8 +287,8 @@ public static void leerArchivo() {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		for(int i=0;i<medicos.size();i++){
-                    
+		for(int i=0;i<listadepacientes.size();i++){
+                    System.out.println(listadepacientes.get(i).toString());
                 }
                         
 	}
