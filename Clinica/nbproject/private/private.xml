@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Pisos.java</file>
-            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Cuidados.java</file>
-            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Hospital.java</file>
-            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Medico.java</file>
-            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Paciente.java</file>
+<<<<<<< HEAD
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/manejoarchivos.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Control/Main.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/Proceso.java</file>
+=======
             <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Proceso.java</file>
             <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Control/Main.java</file>
+>>>>>>> 342a2227d3ac52b4c736758aac12c53f606d0312
         </group>
     </open-files>
 </project-private>

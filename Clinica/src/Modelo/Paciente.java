@@ -10,6 +10,8 @@ public class Paciente extends Persona {
     private int Tipobeneficio;
     private EPS eps;
     private Cuidados tipo_cuidado;
+    
+    Verificaciones verificaciones = new Verificaciones();
     public Paciente() {
     }
 
@@ -87,7 +89,7 @@ public class Paciente extends Persona {
             mensaje += "No aplica para el descuento por que no tiene eps ";
             
         }
-        mensaje+= "\nPiso: "+obj_proceso.returnNumeroPiso(tipo_cuidado);
+        mensaje+= "\nPiso: "+obj_proceso.verificaciones.returnNumeroPiso(tipo_cuidado);
         return mensaje;
     }
 
