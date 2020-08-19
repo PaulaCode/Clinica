@@ -92,6 +92,7 @@ public class Proceso {
                 
                 String especializacion = ioData.solicitarNombre("Escriba en qué se especializa el médico.");
                 int carnet = ioData.solicitarEntero("Digite el carnet");                
+
                 break;
                 
             case 4:
@@ -286,8 +287,6 @@ public class Proceso {
         obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
         obj_historia.setDescripcion("Digite la causa por la que el paciente fue hospitalizado");
         while(verificaciones.validarNombre(obj_historia.getDescripcion()))
-
-        obj_historia.setMedicoencargado(returnMedico(carnet));
         obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         while(validarNombre(obj_historia.getDescripcion()))
 
@@ -568,5 +567,6 @@ public class Proceso {
         }
         return false;
     }
+
 
 }
