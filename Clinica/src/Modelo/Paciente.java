@@ -11,7 +11,8 @@ public class Paciente extends Persona {
     private EPS eps;
     private Cuidados tipo_cuidado;
     
-    Verificaciones verificaciones = new Verificaciones();
+    public Verificaciones verificaciones = new Verificaciones();
+    
     public Paciente() {
     }
 
@@ -49,12 +50,12 @@ public class Paciente extends Persona {
         
         this.historiaclinica.add(historiaclinica);
     }
+    
+     public void setEps(EPS eps) {
+        this.eps = eps;
+    }
     public EPS getEps() {
         return eps;
-    }
-
-    public void setEps(EPS eps) {
-        this.eps = eps;
     }
 
     public Cuidados getTipo_cuidado() {
@@ -85,9 +86,7 @@ public class Paciente extends Persona {
             
         }
         else{
-            
             mensaje += "No aplica para el descuento por que no tiene eps ";
-            
         }
         mensaje+= "\nPiso: "+obj_proceso.verificaciones.returnNumeroPiso(tipo_cuidado);
         return mensaje;

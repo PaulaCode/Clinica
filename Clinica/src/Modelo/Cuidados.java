@@ -20,13 +20,13 @@ public class Cuidados {
     public void setCantidadDecamas(int CantidadDecamas) {
         this.CantidadDecamas = CantidadDecamas;
     }
+    
+    public void setOcupacion(int ocupacion) {
+        this.ocupacion = ocupacion;
+    }
 
     public int getOcupacion() {
         return ocupacion;
-    }
-
-    public void setOcupacion(int ocupacion) {
-        this.ocupacion = ocupacion;
     }
 
     @Override

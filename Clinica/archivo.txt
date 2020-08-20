@@ -1,3 +1,0 @@
-1234,23,jose,josae23123,jose,sancehz gomez,1234,1234
-4321,32,oscar,josodsa2,tulio,carbon leche,2323,1234
-2313,34,toni,j213df,null

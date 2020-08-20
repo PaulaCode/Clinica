@@ -15,6 +15,7 @@ public class HistoriaClinica {
     {
         
     }
+    
     public HistoriaClinica(String FechaHospitalizacion, Medico Medicoencargado, String Descripcion) {
         this.FechaHospitalizacion = FechaHospitalizacion;
         this.Medicoencargado = Medicoencargado;

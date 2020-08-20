@@ -49,8 +49,8 @@ public class Hospital {
         return pisos;
     }
 
-    public void setPisos(ArrayList<Pisos> pisos) {
-        this.pisos = pisos;
+    public void setPisos(Pisos pisos) {
+        this.pisos.add(pisos);
     }
     public void setPiso(Pisos pisos) {
         this.pisos.add(pisos);
@@ -148,22 +148,6 @@ public class Hospital {
             mensaje+= " No hay médicos registrados";
         return mensaje;
     }
-    public String mostrarEps()
-    {
-        String mensaje="";
-        if(!eps.isEmpty())
-        {
-            for(EPS epsobj : eps)
-            {
-                mensaje+=epsobj.toString();
-            }
-        }
-        else
-        {
-            mensaje+="No hay eps registradas";
-        }
-        return mensaje;
-    }
     public String mostrarPisos()
     {
         String mensaje ="";
@@ -177,6 +161,23 @@ public class Hospital {
         else
         {
             mensaje+="No hay pisos registrados";
+        }
+        return mensaje;
+    }
+    
+    public String mostrarEps()
+    {
+        String mensaje="";
+        if(!eps.isEmpty())
+        {
+            for(EPS epsobj : eps)
+            {
+                mensaje+=epsobj.toString();
+            }
+        }
+        else
+        {
+            mensaje+="No hay eps registradas";
         }
         return mensaje;
     }
