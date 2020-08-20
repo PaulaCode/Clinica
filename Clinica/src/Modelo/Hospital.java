@@ -145,7 +145,22 @@ public class Hospital {
             mensaje+= " No hay médicos registrados";
         return mensaje;
     }
-    
+    public String mostrarPisos()
+    {
+        String mensaje ="";
+        if(!pisos.isEmpty())
+        {
+            for(Pisos objpiso:pisos)
+            {
+                mensaje+= objpiso.toString();
+            }
+        }
+        else
+        {
+            mensaje+="No hay pisos registrados";
+        }
+        return mensaje;
+    }
     
     public String mostrarEps()
     {
@@ -163,20 +178,5 @@ public class Hospital {
         }
         return mensaje;
     }
-    public String mostrarPisos()
-    {
-        String mensaje ="";
-        if(!pisos.isEmpty())
-        {
-            for(Pisos objpiso:pisos)
-            {
-                mensaje+= objpiso.toString();
-            }
-        }
-        else
-        {
-            mensaje+="No hay pisos registrados";
-        }
-        return mensaje;
-    }
+    
 }

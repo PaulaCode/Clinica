@@ -1,7 +1,6 @@
 
 package Modelo;
 
-
 public class Medico extends Persona {
     private String Especializacion;
     private int carnet;
@@ -22,12 +21,12 @@ public class Medico extends Persona {
         this.Especializacion = Especializacion;
     }
 
-    public int getCarnet() {
-        return carnet;
-    }
-    
     public void setCarnet(int carnet) {
         this.carnet = carnet;
+    }
+    
+      public int getCarnet() {
+        return carnet;
     }
 
     @Override
