@@ -57,6 +57,7 @@ public class Main {
                                         "\n3.Menú Médico "+
                                         "\n4.Salir "+ 
                                         "\n\n.Digite la opción que desee ");
+            
         switch(opc){
             case 1:
                if(bandAdmin == false){
