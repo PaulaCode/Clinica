@@ -232,12 +232,12 @@ public class Proceso {
             asignarAdulto(persona_encargada, obj_paciente);
         }
         insertarHistoria(obj_paciente);
-        int codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna"));
+        int codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna \n\nDigite el código de la EPS"));
         if (codigo_eps != 0) {
             obj_paciente.setEps(verificaciones.returnEps(codigo_eps));
             while (obj_paciente.getEps() == null) {
                 if (codigo_eps != 0) {
-                    codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna"));
+                    codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna \n\nDigite el código de la EPS"));
                 }
                 obj_paciente.setEps(verificaciones.returnEps(codigo_eps));
             }
@@ -331,7 +331,6 @@ public class Proceso {
 
         obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
 
-
         obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         while (verificaciones.validarNombre(obj_historia.getDescripcion())) {
             obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
@@ -349,8 +348,6 @@ public class Proceso {
         while (tipo <= 0 || tipo > 3) {
             tipo = ioData.solicitarEntero("TIPO CUIDADO\n1. Intensivo \n2.Intermedio \n3.Recuperacion\n\nDigite a qué tipo de cuidado entrará el paciente ");
         }
-
-
          switch (tipo) {
              case 1:     
                  if(obj_piso.getIntensivos()!=null&&obj_piso.getIntensivos().getCantidadDecamas()-obj_piso.getIntensivos().getOcupacion()!=0){

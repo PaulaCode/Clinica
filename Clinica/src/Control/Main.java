@@ -3,13 +3,8 @@ package Control;
 
 import Modelo.*;
 import Vista.InOut;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+
+
 
 
 public class Main {
@@ -22,10 +17,11 @@ public class Main {
        
        
     public static void main(String[] args) {
-        
-        int opc,claveCom;
 
-                                
+        manejoarchivos.leerArchivo(Proceso.hospitalproceso);
+     
+        int opc,claveCom;
+                
          do{
             opc=inOut.solicitarEntero("Bienvenido al menú principal. \n "+
                                         "\n1.Menú Administrador "+
@@ -53,7 +49,7 @@ public class Main {
               proceso.menuAdministrador();
                break;
             case 2: 
-                
+                if(!Proceso.hospitalproceso.getPisos().isEmpty()&&!Proceso.hospitalproceso.getMedicos().isEmpty()){
                 if(bandRec == false){
                    claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");     
                    bandRec = true;
@@ -65,7 +61,7 @@ public class Main {
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
                     }             
                }
-                 proceso.menuRepcionista(); 
+                 proceso.menuRepcionista(); }
                break;
                 
             case 3:
@@ -86,15 +82,16 @@ public class Main {
                 proceso.menumedico();
                break;
             case 4:
-                crearArchivo(Proceso.hospitalproceso);
+                manejoarchivos.crearArchivo(Proceso.hospitalproceso);
                 System.exit(0);
                 break;
             case 5:
-                leerArchivo();
+                
+                break;
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
-        }while(opc!=5);
+        }while(opc!=6);
         
     }
 
@@ -118,7 +115,7 @@ public class Main {
         return nombre;
     }
 
-
+  
 }
  
 

@@ -88,7 +88,6 @@ public class Paciente extends Persona {
         else{
             mensaje += "No aplica para el descuento por que no tiene eps ";
         }
-        mensaje+= "\nPiso: "+obj_proceso.verificaciones.returnNumeroPiso(tipo_cuidado);
         return mensaje;
     }
 
