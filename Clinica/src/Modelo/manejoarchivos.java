@@ -6,9 +6,7 @@ import java.util.*;
 public class manejoarchivos
 {
     private InOut ioData= new InOut();
-    private String id;
-    private double cantidad;
-    File ficherodeposito= new File ("pacientes.txt");
+
     
     public manejoarchivos ()//objeto para enviar los datos a esta clase
     { 
@@ -31,7 +29,8 @@ public class manejoarchivos
                        
                         for(int i=0 ; i<pacientes.size(); i++){
                             if(i == pacientes.size()-1){
-                                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+",");
+                                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+","
+                                +pacientes.get(i).getTipo_cuidado().getCantidadDecamas()+","+pacientes.get(i).getTipo_cuidado().getOcupacion()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null");
                                 
@@ -40,7 +39,8 @@ public class manejoarchivos
                             }
                                 
                             } else{
-                            bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+",");
+                            bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+","
+                            +pacientes.get(i).getTipo_cuidado().getCantidadDecamas()+","+pacientes.get(i).getTipo_cuidado().getOcupacion()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null\n");
                                 
@@ -91,6 +91,7 @@ public class manejoarchivos
                                 
         
 				Paciente e= new Paciente();
+                                Cuidados obj_cuidado = new Cuidados();
 				e.setId(delimitar.nextInt());
 				e.setEdad(delimitar.nextInt());              
 				e.setNombre(delimitar.next());
@@ -98,6 +99,9 @@ public class manejoarchivos
 				e.setTelefono(delimitar.nextInt());
 				e.setCorreo(delimitar.next());
                                 e.setTipobeneficio(delimitar.nextInt());
+                                obj_cuidado.setCantidadDecamas(delimitar.nextInt());
+                                obj_cuidado.setOcupacion(delimitar.nextInt());
+                                e.setTipo_cuidado(obj_cuidado);
                                 String a = (delimitar.next());
                                
                                if(a.equalsIgnoreCase("null")){
@@ -170,6 +174,100 @@ public static void crearHistoria(Hospital objhospital) {
 			}
 		}
 	}
+        public static void almacenarPisos(ArrayList<Pisos> lista_pisos)
+        {
+            File f = new File("Pisos.txt");
+            try{
+                FileWriter fw = new FileWriter(f,false);
+               BufferedWriter bfwriter = new BufferedWriter(fw);
+               for(Pisos obpiso:lista_pisos)
+               {
+                   bfwriter.write(obpiso.getNumpiso()+"");
+                   if(obpiso.getIntensivos()!=null)
+                   {
+                       bfwriter.write(",1,"+obpiso.getIntensivos().getCantidadDecamas()+","+obpiso.getIntensivos().getOcupacion());
+                   }
+                   else
+                   {
+                       bfwriter.write(",-1,0,-1");
+                   }
+                   if(obpiso.getIntermedios()!=null)
+                   {
+                      bfwriter.write(",2,"+obpiso.getIntermedios().getCantidadDecamas()+","+obpiso.getIntermedios().getOcupacion());
+                   }
+                   else
+                   {
+                       bfwriter.write(",-1,0,-1");
+                   }
+                   if(obpiso.getRecuperacion()!=null)
+                   {
+                      bfwriter.write(",3,"+obpiso.getRecuperacion().getCantidadDecamas()+","+obpiso.getRecuperacion().getOcupacion());
+                   }
+                   else
+                   {
+                       bfwriter.write(",-1,0,-1");
+                   }
+                   bfwriter.write("\n");
+               }
+               bfwriter.close();
+                System.out.println("Archivo pisos creado con éxito!");
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace(System.out);
+            }
+        }
+        public static void leerPisos(Hospital obj_hospital)
+        {
+            File file = new File("Pisos.txt");
+            try{
+                Scanner scanner = new Scanner(file);
+
+                while(scanner.hasNextLine())
+                {   
+                    String linea = scanner.nextLine();
+                    Scanner delimitar = new Scanner(linea);
+                    delimitar.useDelimiter("\\s*,\\s*"); 
+                    
+                    Pisos obj_piso = new Pisos();
+                    obj_piso.setNumpiso(delimitar.nextInt());
+                    for(int i =0;i<3;i++)
+                    {
+                        int tipo = delimitar.nextInt();
+                        if(tipo!=-1)
+                        {
+                             Cuidados obj_cuidados = new Cuidados();
+                             obj_cuidados.setCantidadDecamas(delimitar.nextInt());
+                             obj_cuidados.setOcupacion(delimitar.nextInt());
+                            if(tipo==1)
+                            {
+                              obj_piso.setIntensivos(obj_cuidados);
+                            }
+                            if(tipo==2)
+                            {
+                              obj_piso.setIntermedios(obj_cuidados); 
+                            }
+                            if(tipo==3)
+                            {
+                              obj_piso.setRecuperacion(obj_cuidados);
+                            }    
+                     
+                       }
+                        else{
+                        int x= delimitar.nextInt();
+                        int y= delimitar.nextInt();
+                        }
+                    }
+                    obj_hospital.setPisos(obj_piso);
+                    
+                }
+                scanner.close();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace(System.out);
+            }
+        }
 
         
        

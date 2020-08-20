@@ -27,6 +27,8 @@ public class Main {
     public static void main(String[] args) {
 
         manejoarchivos.leerArchivo(Proceso.hospitalproceso);
+        manejoarchivos.leerPisos(Proceso.hospitalproceso);
+       
      
         int opc,claveCom;
 
@@ -96,8 +98,8 @@ public class Main {
             case 4:
                
                manejoarchivos.crearArchivo(Proceso.hospitalproceso);
-               manejoarchivos.crearHistoria(Proceso.hospitalproceso);
-               
+               //manejoarchivos.crearHistoria(Proceso.hospitalproceso);
+               manejoarchivos.almacenarPisos(Proceso.hospitalproceso.getPisos());
             System.exit(0);
                 break;
      

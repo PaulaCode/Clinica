@@ -117,7 +117,7 @@ public class Proceso {
                 case 5:
                     int opc1;
                     Pisos pisos = new Pisos();
-                    pisos.setNumpiso(numeroPiso);
+         
                     do {
                         opc1 = ioData.solicitarEntero("Opción pisos: "
                                 + "\n1.Cuidados intensivos "
@@ -158,9 +158,9 @@ public class Proceso {
                                 }
                                 break;
                             case 4: 
+                                pisos.setNumpiso(hospitalproceso.getPisos().size()+1);
                                 hospitalproceso.setPisos(pisos);
-
-                                numeroPiso++;
+                              
                                 break;
 
                         }
@@ -168,10 +168,10 @@ public class Proceso {
                     } while (opc1 != 4);
 
                     break;
-                case 6:
+                case 6: ioData.mostrarResultado(hospitalproceso.mostrarPisos());
                     break;
             }
-        } while (opc != 6);
+        } while (opc != 7);
 
     }
 
@@ -405,18 +405,26 @@ public class Proceso {
         if (verificaciones.validarPaciente(id)) {
             Paciente objpaciente = verificaciones.returnPaciente(id);
             int numpiso = verificaciones.returnNumeroPiso(objpaciente.getTipo_cuidado());
+       
             Pisos obj_piso = verificaciones.returnPiso(numpiso);
             int tipo = verificaciones.returnTipoCuidado(objpaciente.getTipo_cuidado());
             switch (tipo) {
                 case 1:
                     obj_piso.getIntensivos().setOcupacion((obj_piso.getIntensivos().getOcupacion() - 1));
+                    hospitalproceso.getPisos().get(numpiso-1).setIntensivos(obj_piso.getIntensivos());
                     break;
                 case 2:
 
-                    obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion() - 1);
+                    obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion()- 1);
+                   hospitalproceso.getPisos().get(numpiso-1).setIntermedios(obj_piso.getIntermedios());
                     break;
                 case 3:
                     obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion() - 1);
+                    hospitalproceso.getPisos().get(numpiso-1).setRecuperacion(obj_piso.getRecuperacion());
+                    break;
+                default: 
+                    ioData.mostrarResultado("Habitación no encontrada");
+                  
                     break;
             }
             int cantidad_dias = ioData.solicitarEntero("Digite la cantidad de días que el paciente permaneció hospitalizado");
