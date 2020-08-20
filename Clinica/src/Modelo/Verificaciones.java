@@ -25,16 +25,30 @@ public class Verificaciones {
             return false;
         }
     }
-    public boolean validarParentesco(String apellido1,String apellido2)
-    {
-            StringTokenizer toke = new StringTokenizer(apellido2);
-            while(toke.hasMoreTokens())
-            {
-                if(apellido1.equals(toke))
-                return true;
-                toke.nextToken();
-            }
-            return false;
+   public boolean validarParentesco(String apellidopaciente,String apellidoencargado)	
+    {	
+        //sierra alba  lopez sierra	
+            if(apellidopaciente.equalsIgnoreCase(apellidoencargado))	
+            {	
+                return true;	
+            }	
+
+            StringTokenizer toke = new StringTokenizer(apellidopaciente);	
+            StringTokenizer toke2 = new StringTokenizer(apellidoencargado);	
+            String tokeanterior = toke2.nextToken();//lopez	
+            String tokeanterior2 = toke.nextToken();//sierra	
+            String apellidop1 = "",apellidop2 = "";	
+
+            while(toke.hasMoreTokens())	
+            {	
+                 apellidop1 = toke.nextToken();//sierra   alba	
+                 apellidop2 = toke2.nextToken();//lopez   sierra    	
+                if(apellidop1.equalsIgnoreCase(apellidop2)||tokeanterior.equalsIgnoreCase(apellidop1)||tokeanterior2.equalsIgnoreCase(apellidop2)||tokeanterior2.equalsIgnoreCase(tokeanterior))	
+                {	
+                  return true;  	
+                }	
+            }	
+            return false;	
     }
     public boolean validarIdentificacion(int identificacion)
     {
