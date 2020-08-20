@@ -64,7 +64,7 @@ public class Verificaciones {
     
     public boolean validarCorreo(String correo){
         
-          for(Persona objpersona : hospitalproceso.getRegistro_paciente())
+          for(Persona objpersona : Proceso.lista_personas)
         {
             if(correo.equalsIgnoreCase(objpersona.getCorreo()))
             {
@@ -139,7 +139,12 @@ public class Verificaciones {
         }
         return null;
     }
-    
+    public boolean verificarHistoria(String historia){
+        
+         StringTokenizer toke = new StringTokenizer(historia);
+        return toke.countTokens()>=2;
+        
+    }
     public int returnCarnet(int carnet){
         
         for(int i =0;i<hospitalproceso.getMedicos().size();i++)
@@ -203,6 +208,8 @@ public class Verificaciones {
         }
         return null; 
     }
+    
+    
     public int returnPosPaciente(int id)
     {
        for(int i =0;i<hospitalproceso.getPacientes().size();i++)

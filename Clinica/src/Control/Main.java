@@ -45,6 +45,7 @@ public class Main {
                    claveAdmin = claveCom;
                    String nombreH = inOut.solicitarNombre("Digite el nombre del hospital: ");
                    nombre = nombreH;
+                    proceso.menuAdministrador();
                    Proceso.hospitalproceso.setNombre(nombre);
                    bandAdmin = true;
                    
@@ -53,24 +54,25 @@ public class Main {
                     while(claveAdmin != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del administrador correctamente: ");
                     }
-                     
+                      proceso.menuAdministrador();
                }
-              proceso.menuAdministrador();
+             
                break;
             case 2: 
                 if(!Proceso.hospitalproceso.getPisos().isEmpty()&&!Proceso.hospitalproceso.getMedicos().isEmpty()){
                 if(bandRec == false){
-                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");     
+                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
+                   proceso.menuRepcionista();
                    bandRec = true;
                } 
                else {
-
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
                     while(claveRec != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
-                    }             
+                    }     
+                     proceso.menuRepcionista();
                }
-                 proceso.menuRepcionista(); }
+                }
                 else{
                     inOut.mostrarResultado("No hay médicos y/o pisos para poder ser atendido.");
                 }
@@ -89,9 +91,9 @@ public class Main {
                     while(claveMedico != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina correctamente: ");
                     }
-                   
+                     proceso.menumedico();
                }
-                proceso.menumedico();
+              
                break;
             case 4:
                

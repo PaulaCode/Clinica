@@ -65,7 +65,7 @@ public class Pisos {
             mensaje+="\nIntermedios: \n" + Intermedios.toString();
         }
         if(Recuperacion!=null){
-            mensaje+="\nRecuperacion: \n" + "Numero de habitaciones: " + Recuperacion.getCantidadDecamas();
+            mensaje+="\nRecuperacion: \n" + "Numero de habitaciones: " + Recuperacion.getCantidadDecamas()+"\n";
         }
           return mensaje;
     }
