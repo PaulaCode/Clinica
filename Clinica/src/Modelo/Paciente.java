@@ -11,7 +11,8 @@ public class Paciente extends Persona {
     private EPS eps;
     private Cuidados tipo_cuidado;
     
-    Verificaciones verificaciones = new Verificaciones();
+    public Verificaciones verificaciones = new Verificaciones();
+    
     public Paciente() {
     }
 
@@ -56,7 +57,7 @@ public class Paciente extends Persona {
     public void setEps(EPS eps) {
         this.eps = eps;
     }
-
+   
     public Cuidados getTipo_cuidado() {
         return tipo_cuidado;
     }

@@ -145,6 +145,8 @@ public class Hospital {
             mensaje+= " No hay médicos registrados";
         return mensaje;
     }
+    
+    
     public String mostrarEps()
     {
         String mensaje="";
@@ -177,5 +179,4 @@ public class Hospital {
         }
         return mensaje;
     }
-    
 }

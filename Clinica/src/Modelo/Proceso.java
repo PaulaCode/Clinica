@@ -386,8 +386,6 @@ public class Proceso {
         return acumulador;
     }
 
-<<<<<<< HEAD
-=======
     public boolean validarFecha(String fecha)
     {
         try
@@ -576,6 +574,4 @@ public class Proceso {
         return false;
     }
 
->>>>>>> 930c01531e0350b5c20f8a52ec1aa39efa1d0f51
-    
 }

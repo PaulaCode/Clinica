@@ -25,7 +25,7 @@ public class Medico extends Persona {
     public int getCarnet() {
         return carnet;
     }
-
+    
     public void setCarnet(int carnet) {
         this.carnet = carnet;
     }
