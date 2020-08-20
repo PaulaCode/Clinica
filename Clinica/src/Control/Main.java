@@ -3,13 +3,8 @@ package Control;
 
 import Modelo.*;
 import Vista.InOut;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+
+
 
 
 public class Main {
@@ -54,7 +49,7 @@ public class Main {
               proceso.menuAdministrador();
                break;
             case 2: 
-                
+                if(!Proceso.hospitalproceso.getPisos().isEmpty()&&!Proceso.hospitalproceso.getMedicos().isEmpty()){
                 if(bandRec == false){
                    claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");     
                    bandRec = true;
@@ -66,7 +61,7 @@ public class Main {
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
                     }             
                }
-                 proceso.menuRepcionista(); 
+                 proceso.menuRepcionista(); }
                break;
                 
             case 3:
@@ -119,51 +114,8 @@ public class Main {
     public static String getNombre() {
         return nombre;
     }
-    
 
-public static void crearArchivoRegistro(Hospital objhospital) {
-              ArrayList<Paciente> pacientes =  objhospital.getPacientes();
-              
-		FileWriter flwriter = null;
-		try {
-			//crea el flujo para escribir en el archivo
-			flwriter = new FileWriter("registropacientes.txt",false);
-			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
-			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-                        bfwriter.write( "%");
-                        for(Paciente paciente : pacientes){
-                   
-                            if(paciente.getHistoriaclinica()!= null ){
-                                for(HistoriaClinica historias : paciente.getHistoriaclinica() ){
-                                  
-                                  bfwriter.write(paciente.getId()+","+paciente.getNombre()+","+historias.getFechaHospitalizacion()+","+historias.getDescripcion()+","+historias.getMedicoencargado());
-
-                                }
-                                
-
-                                }                           
-
-                            }
-                        
-                        bfwriter.write("%");
-                       
-			//cierra el buffer intermedio
-			bfwriter.close();
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (flwriter != null) {
-				try {//cierra el flujo principal
-					flwriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-        
-
+  
 }
  
 

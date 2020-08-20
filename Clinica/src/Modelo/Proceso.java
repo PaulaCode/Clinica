@@ -232,12 +232,12 @@ public class Proceso {
             asignarAdulto(persona_encargada, obj_paciente);
         }
         insertarHistoria(obj_paciente);
-        int codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna"));
+        int codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna \n\nDigite el código de la EPS"));
         if (codigo_eps != 0) {
             obj_paciente.setEps(verificaciones.returnEps(codigo_eps));
             while (obj_paciente.getEps() == null) {
                 if (codigo_eps != 0) {
-                    codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna"));
+                    codigo_eps = (ioData.solicitarEntero(hospitalproceso.getEps() + "\n0.Ninguna \n\nDigite el código de la EPS"));
                 }
                 obj_paciente.setEps(verificaciones.returnEps(codigo_eps));
             }
