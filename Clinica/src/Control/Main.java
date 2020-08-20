@@ -104,7 +104,7 @@ public class Main {
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
-        }while(opc!=6);
+        }while(opc!=4);
         
     }
 
