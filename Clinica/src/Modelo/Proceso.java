@@ -88,10 +88,8 @@ public class Proceso {
                 
                 break;
             
-            case 3:
-                
+            case 3:             
                 ingresarMedico();
-
                 break;
                 
             case 4:
@@ -132,6 +130,7 @@ public class Proceso {
                      break;
                  }
                  case 2:{
+                     otorgarSalida();
                      break;
                  }
                  case 3:{
@@ -164,6 +163,8 @@ public class Proceso {
        while(verificaciones.returnCarnet(carnet)!= -1){
            carnet = ioData.solicitarEntero("El carnet está repetido. \nDigite el carnet");
        }
+       obj_Medico.setCarnet(carnet);
+       obj_Medico.setEspecializacion(especializacion);
        hospitalproceso.setMedico(obj_Medico);
         lista_personas.add(obj_Medico);
    }
@@ -290,6 +291,8 @@ public class Proceso {
 
        
         obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
+
+
         obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         while(verificaciones.validarNombre(obj_historia.getDescripcion()))
 
@@ -572,5 +575,5 @@ public class Proceso {
         return false;
     }
 
-    
+
 }

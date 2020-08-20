@@ -1,19 +1,13 @@
 
 package Control;
 
-import Modelo.Cuidados;
-import Modelo.EPS;
-import Modelo.HistoriaClinica;
-import Modelo.Hospital;
-import Modelo.Medico;
-import Modelo.Paciente;
-import Modelo.Persona;
-import Modelo.Pisos;
-import Modelo.Proceso;
+import Modelo.*;
 import Vista.InOut;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +27,13 @@ public class Main {
         
        // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
        //   proceso.ingresarPaciente();
+       Cuidados obj_cuidado1 = new Cuidados(20,12);
+       Cuidados obj_cuidado2 = new Cuidados(10,5);      
+       Cuidados obj_cuidado3 = new Cuidados(7,4);
+  
+      
+       Pisos obj_piso = new Pisos(12,obj_cuidado1,obj_cuidado2,obj_cuidado3);
+       Proceso.hospitalproceso.setPiso(obj_piso);
         int opc,claveCom;
         Paciente e= new Paciente();
 				e.setId(1234);
@@ -41,16 +42,39 @@ public class Main {
                                 e.setApellidos("sancehz gomez");
 				e.setTelefono(1234);
 				e.setCorreo("josae23123");
-                                Proceso.hospitalproceso.setPaciente(e);
-                                Persona es= new Persona();
+                                 Persona es= new Persona();
 				es.setId(1234);
 				es.setEdad(23);
 				es.setNombre("jose");
                                 es.setApellidos("sancehz gomez");
 				es.setTelefono(1234);
 				es.setCorreo("josae23123");
-                               // e.setAcompañante(es);
-                                
+                                e.setAcompañante(es);
+                                Proceso.hospitalproceso.setPaciente(e);
+                                Paciente f= new Paciente();
+				f.setId(4321);
+				f.setEdad(32);
+				f.setNombre("oscar");
+                                f.setApellidos("sanabria gomez");
+				f.setTelefono(1234);
+				f.setCorreo("josodsa2");
+                                 Persona ex= new Persona();
+				ex.setId(2323);
+				ex.setEdad(23);
+				ex.setNombre("tulio");
+                                ex.setApellidos("carbon leche");
+				ex.setTelefono(1234);
+				ex.setCorreo("tuliosdao23");
+                                f.setAcompañante(ex);
+                                Proceso.hospitalproceso.setPaciente(f);
+                               Paciente g= new Paciente();
+				g.setId(2313);
+				g.setEdad(34);
+				g.setNombre("toni");
+                                g.setApellidos("asdas saas");
+				g.setTelefono(3213);
+				g.setCorreo("j213df");
+                                Proceso.hospitalproceso.setPaciente(g);
          do{
             opc=inOut.solicitarEntero("Bienvenido al menú principal. \n "+
                                         "\n1.Menú Administrador "+
@@ -115,11 +139,12 @@ public class Main {
                
                break;
             case 4:
-                crearArchivo(Proceso.hospitalproceso);
+                crear(Proceso.hospitalproceso);
                 System.exit(0);
                 break;
             case 5:
                 leerArchivo();
+                break;
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
@@ -149,95 +174,72 @@ public class Main {
     
    
         
-public static void crearArchivo(Hospital objhospital) {
-                ArrayList <Medico> medicos = objhospital.getMedicos();
-                ArrayList <Paciente> pacientes = objhospital.getPacientes();
-                ArrayList <Paciente> pacienteshistorial = objhospital.getRegistro_paciente();
-                ArrayList <EPS> epshospital = objhospital.getEps();
-                ArrayList <Pisos> pisoshospital = objhospital.getPisos();
-                Cuidados cuidados = new Cuidados(); 
-		FileWriter flwriter = null;
-		try {
-			//crea el flujo para escribir en el archivo
-			flwriter = new FileWriter("hospital.txt",false);
-			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
-			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-                      
-                       
-                        for(Paciente paciente : pacientes){
-                            bfwriter.write(paciente.getId()+","+paciente.getEdad()+","+paciente.getNombre()+","+paciente.getApellidos()+","+paciente.getTelefono()+","+paciente.getCorreo()+",");
-                            if(paciente.getAcompañante() == null){
-                                bfwriter.write("null");
+
+
+public static void crear(Hospital objhospital){
+    ArrayList <Paciente> pacientes= objhospital.getPacientes();
+    try{
+        File f = new File("archivo.txt");
+        FileWriter fw;
+        BufferedWriter bw;
+      
+            fw = new FileWriter (f,false);
+            bw = new BufferedWriter(fw);
+            
+            for(int i=0;i<pacientes.size();i++){
+          
+            bw.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getCorreo());
+            
+           if(pacientes.get(i).getAcompañante() == null){
+                                bw.write(","+"null");
                                 
                             }else{
                                 
                                 
-                                bfwriter.write(","+paciente.getAcompañante().getNombre()+","+paciente.getAcompañante().getApellidos()+","+paciente.getAcompañante().getId()+","+paciente.getAcompañante().getTelefono());
+                                bw.write(","+pacientes.get(i).getAcompañante().getNombre()+","+pacientes.get(i).getAcompañante().getApellidos()+","+pacientes.get(i).getAcompañante().getId()+","+pacientes.get(i).getAcompañante().getTelefono());
                             
                             }
-                            
-                        }
-                       
-                          
-			//cierra el buffer intermedio
-			bfwriter.close();
-			System.out.println("Archivo de medicos creado satisfactoriamente..");
+           bw.write("\n");
+            }
+            
+        
+            
+            
+        
  
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (flwriter != null) {
-				try {//cierra el flujo principal
-					flwriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-public static void crearArchivoRegistro(Hospital objhospital) {
-              ArrayList<Paciente> pacientes =  objhospital.getPacientes();
-              
-		FileWriter flwriter = null;
-		try {
-			//crea el flujo para escribir en el archivo
-			flwriter = new FileWriter("registropacientes.txt",false);
-			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
-			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-                        bfwriter.write( "%");
-                        for(Paciente paciente : pacientes){
-                   
-                            if(paciente.getHistoriaclinica()!= null ){
-                                for(HistoriaClinica historias : paciente.getHistoriaclinica() ){
-                                  
-                                  bfwriter.write(paciente.getId()+","+paciente.getNombre()+","+historias.getFechaHospitalizacion()+","+historias.getDescripcion()+","+historias.getMedicoencargado());
-                                }
-                                
-                                
-                            }
-                        }
-                        bfwriter.write("%");
-                       
-			//cierra el buffer intermedio
-			bfwriter.close();
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (flwriter != null) {
-				try {//cierra el flujo principal
-					flwriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+        bw.close();
+        fw.close();
+    }catch(Exception e){
+        System.out.println(e);
+    }
+}
+
+public static void leer(){
+    try{
+        File f = new File("archivos.txt");
+        if(f.exists()){
+            FileReader fr =new FileReader(f);
+            BufferedReader br = new  BufferedReader(fr);
+            String linea;
+            while ((linea=br.readLine())!=null){
+                
+                String[] contacto = linea.split(",");
+                //int cedula = contacto[0].;
+                
+                Paciente p = new Paciente();
+            }
+        }else{
+            System.out.println("vacio");
+        }
+    }catch(Exception e){
+    System.out.println(e);
+}
+    
+}
 public static void leerArchivo() {
 		// crea el flujo para leer desde el archivo
 		File file = new File("hospital.txt");
 		ArrayList <Paciente>listadepacientes= new ArrayList<Paciente>();
-                ArrayList <Medico> medicos = new ArrayList<Medico>();
 		Scanner scanner;
              
 		try {
@@ -267,7 +269,7 @@ public static void leerArchivo() {
                                
                                if(a.equalsIgnoreCase("null")){
                                    System.out.println("hola");
-                                   e.setAcompañante(null);
+                                  
                                }else{
                                  Persona acompañante = new Persona();
                                  acompañante.setNombre(delimitar.next());
@@ -285,13 +287,14 @@ public static void leerArchivo() {
 			//se cierra el ojeto scanner
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 		}
 		for(int i=0;i<listadepacientes.size();i++){
                     System.out.println(listadepacientes.get(i).toString());
                 }
                         
 	}
+
 }
  
 

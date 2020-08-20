@@ -123,4 +123,52 @@ public class manejoarchivos
             System.out.println(ex.getMessage());
         }
     }*/
+    public static void crearArchivo(Hospital objhospital) {
+                ArrayList <Medico> medicos = objhospital.getMedicos();
+                ArrayList <Paciente> pacientes = objhospital.getPacientes();
+                ArrayList <Paciente> pacienteshistorial = objhospital.getRegistro_paciente();
+                ArrayList <EPS> epshospital = objhospital.getEps();
+                ArrayList <Pisos> pisoshospital = objhospital.getPisos();
+                Cuidados cuidados = new Cuidados(); 
+		FileWriter flwriter = null;
+		try {
+			//crea el flujo para escribir en el archivo
+			flwriter = new FileWriter("hospital.txt",false);
+			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+                      
+                       
+                        for(Paciente paciente : pacientes){
+                            bfwriter.newLine();
+                            
+                            bfwriter.write(paciente.getId()+","+paciente.getEdad()+","+paciente.getNombre()+","+paciente.getApellidos()+","+paciente.getTelefono()+","+paciente.getCorreo()+",");
+                            if(paciente.getAcompañante() == null){
+                                bfwriter.write("null");
+                                
+                            }else{
+                                
+                                
+                                bfwriter.write(","+paciente.getAcompañante().getNombre()+","+paciente.getAcompañante().getApellidos()+","+paciente.getAcompañante().getId()+","+paciente.getAcompañante().getTelefono());
+                            
+                            }
+                            
+                        }
+                       
+                          
+			//cierra el buffer intermedio
+			bfwriter.close();
+			System.out.println("Archivo de medicos creado satisfactoriamente..");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (flwriter != null) {
+				try {//cierra el flujo principal
+					flwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
