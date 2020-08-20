@@ -31,7 +31,7 @@ public class manejoarchivos
                        
                         for(int i=0 ; i<pacientes.size(); i++){
                             if(i == pacientes.size()-1){
-                                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
+                                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null");
                                 
@@ -40,7 +40,7 @@ public class manejoarchivos
                             }
                                 
                             } else{
-                            bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
+                            bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null\n");
                                 
@@ -97,6 +97,7 @@ public class manejoarchivos
                                 e.setApellidos(delimitar.next());
 				e.setTelefono(delimitar.nextInt());
 				e.setCorreo(delimitar.next());
+                                e.setTipobeneficio(delimitar.nextInt());
                                 String a = (delimitar.next());
                                
                                if(a.equalsIgnoreCase("null")){
@@ -114,8 +115,7 @@ public class manejoarchivos
                                }
 
 				objhospital.getPacientes().add(e);
-                               System.out.println(e.toString());;
-
+        
 			}
 			//se cierra el ojeto scanner
 			scanner.close();

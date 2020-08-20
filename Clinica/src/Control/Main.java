@@ -3,6 +3,7 @@ package Control;
 
 import Modelo.*;
 import Vista.InOut;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -57,7 +58,7 @@ public class Main {
               proceso.menuAdministrador();
                break;
             case 2: 
-                
+                if(!Proceso.hospitalproceso.getPisos().isEmpty()&&!Proceso.hospitalproceso.getMedicos().isEmpty()){
                 if(bandRec == false){
                    claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");     
                    bandRec = true;
@@ -69,7 +70,10 @@ public class Main {
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
                     }             
                }
-                 proceso.menuRepcionista(); 
+                 proceso.menuRepcionista(); }
+                else{
+                    inOut.mostrarResultado("No hay médicos y/o pisos para poder ser atendido.");
+                }
                break;
                 
             case 3:
@@ -123,12 +127,9 @@ public class Main {
     public static String getNombre() {
         return nombre;
     }
-    
-   
 
 
-
-
+  
 }
  
 

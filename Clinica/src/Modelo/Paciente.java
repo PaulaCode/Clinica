@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Paciente extends Persona {
     private Persona acompañante;
     private ArrayList <HistoriaClinica> historiaclinica = new  ArrayList<>();
-    private int Tipobeneficio;
+    private int Tipobeneficio=0;
     private EPS eps;
     private Cuidados tipo_cuidado;
     
@@ -81,14 +81,14 @@ public class Paciente extends Persona {
         if(Tipobeneficio == 1 ){
             mensaje+="Beneficio de cotizante al 70%";
             
-        } if(Tipobeneficio == 2 ){
+        } 
+        else if(Tipobeneficio == 2 ){
             mensaje+="Beneficio de beneficiaro al 50%";
             
         }
-        else{
+        else if (Tipobeneficio ==0){
             mensaje += "No aplica para el descuento por que no tiene eps ";
         }
-        mensaje+= "\nPiso: "+obj_proceso.verificaciones.returnNumeroPiso(tipo_cuidado);
         return mensaje;
     }
 

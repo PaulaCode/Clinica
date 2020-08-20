@@ -25,16 +25,30 @@ public class Verificaciones {
             return false;
         }
     }
-    public boolean validarParentesco(String apellido1,String apellido2)
-    {
-            StringTokenizer toke = new StringTokenizer(apellido2);
-            while(toke.hasMoreTokens())
-            {
-                if(apellido1.equals(toke))
-                return true;
-                toke.nextToken();
-            }
-            return false;
+   public boolean validarParentesco(String apellidopaciente,String apellidoencargado)	
+    {	
+        //sierra alba  lopez sierra	
+            if(apellidopaciente.equalsIgnoreCase(apellidoencargado))	
+            {	
+                return true;	
+            }	
+
+            StringTokenizer toke = new StringTokenizer(apellidopaciente);	
+            StringTokenizer toke2 = new StringTokenizer(apellidoencargado);	
+            String tokeanterior = toke2.nextToken();//lopez	
+            String tokeanterior2 = toke.nextToken();//sierra	
+            String apellidop1 = "",apellidop2 = "";	
+
+            while(toke.hasMoreTokens())	
+            {	
+                 apellidop1 = toke.nextToken();//sierra   alba	
+                 apellidop2 = toke2.nextToken();//lopez   sierra    	
+                if(apellidop1.equalsIgnoreCase(apellidop2)||tokeanterior.equalsIgnoreCase(apellidop1)||tokeanterior2.equalsIgnoreCase(apellidop2)||tokeanterior2.equalsIgnoreCase(tokeanterior))	
+                {	
+                  return true;  	
+                }	
+            }	
+            return false;	
     }
     public boolean validarIdentificacion(int identificacion)
     {
@@ -223,5 +237,26 @@ public class Verificaciones {
         }
         return -1;
         
+    }
+    
+    public boolean verificarNombreEPS(String nombre){
+        
+        for(int i=0; i< hospitalproceso.getEps().size(); i++)
+        {
+            if(hospitalproceso.getEps().get(i).getNombre().equalsIgnoreCase(nombre))
+            {
+                return true;
+            }
+        }
+        return false;
+        
+    }
+    
+    public boolean verificarMayorEdad(int edad){
+        
+        if(edad < 18 || edad > 120 ){
+            return true;
+        }
+        return false;
     }
 }
