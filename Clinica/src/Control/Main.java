@@ -31,7 +31,7 @@ public class Main {
   
       
        Pisos obj_piso = new Pisos(12,obj_cuidado1,obj_cuidado2,obj_cuidado3);
-       Proceso.hospitalproceso.setPiso(obj_piso);
+   //   Proceso.hospitalproceso.setPiso(obj_piso);
         int opc,claveCom;
         Paciente e= new Paciente();
 				e.setId(1234);
@@ -57,7 +57,6 @@ public class Main {
                                         "\n3.Menú Médico "+
                                         "\n4.Salir "+ 
                                         "\n\n.Digite la opción que desee ");
-            
         switch(opc){
             case 1:
                if(bandAdmin == false){
