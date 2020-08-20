@@ -115,8 +115,7 @@ public class manejoarchivos
                                }
 
 				objhospital.getPacientes().add(e);
-                               System.out.println(e.toString());;
-
+        
 			}
 			//se cierra el ojeto scanner
 			scanner.close();
@@ -125,5 +124,55 @@ public class manejoarchivos
 		}
 		     
 	}
+public static void crearHistoria(Hospital objhospital) {
+                
+                ArrayList <Paciente> pacientes = objhospital.getPacientes();
+                ArrayList <HistoriaClinica> historias= new ArrayList<>();
+               File f = new File("historias.txt");
+		FileWriter flwriter = null;
+		try {
+			//crea el flujo para escribir en el archivo
+			flwriter = new FileWriter(f,false);
+			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+                       
+                   for(int i=0;i<pacientes.size();i++){
+                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getNombre()+"\n");
+                    for(int j=0;j<pacientes.get(i).getHistoriaclinica().size();j++){
+                         bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getNombre()+",");
+                        
+                       
+                            if(j==pacientes.get(i).getHistoriaclinica().size()-1){
+                                 bfwriter.write(historias.get(j).getFechaHospitalizacion()+","+historias.get(j).getDescripcion());
+                           
+                            }else{
+                            bfwriter.write(historias.get(j).getFechaHospitalizacion()+","+historias.get(j).getDescripcion()+"\n");
+                        } 
+                    
+                   
+                }
+                      
+                   }   
+                          
+			//cierra el buffer intermedio
+			bfwriter.close();
+			System.out.println("Archivo creado satisfactoriamente..");
+ 
+		} catch (IOException e) {
+			e.printStackTrace(System.out);
+		} finally {
+			if (flwriter != null) {
+				try {//cierra el flujo principal
+					flwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace(System.out);
+				}
+			}
+		}
+	}
 
+        
+       
+    
+    
 }
