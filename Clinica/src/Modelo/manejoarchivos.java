@@ -14,113 +14,115 @@ public class manejoarchivos
     { 
     }
 
-    public void existearchivo()//metodo para hacer la base de datos
-    {
-        try
-        {
-            if (ficherodeposito.exists())//saber si existe el archivo de texto
-            {
-                ioData.mostrarResultado("la base de datos ya existe");
-            }
-            else
-            {
-                ficherodeposito.createNewFile();
-                ioData.mostrarResultado("base de datos creada");
-            }
-        }
-        catch(Exception ex)
-        {
-           ioData.mostrarResultado(ex.getMessage());
-        }
-    }
+    public static void crearArchivo(Hospital objhospital) {
+                ArrayList <Medico> medicos = objhospital.getMedicos();
+                ArrayList <Paciente> pacientes = objhospital.getPacientes();
+                ArrayList <Paciente> pacienteshistorial = objhospital.getRegistro_paciente();
+                ArrayList <EPS> epshospital = objhospital.getEps();
+                ArrayList <Pisos> pisoshospital = objhospital.getPisos();
+                Cuidados cuidados = new Cuidados(); 
+		FileWriter flwriter = null;
+		try {
+			//crea el flujo para escribir en el archivo
+			flwriter = new FileWriter("hospital.txt",false);
+			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+                      
+                       
+                        for(int i=0 ; i<pacientes.size(); i++){
+                            if(i == pacientes.size()-1){
+                                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
+                            if(pacientes.get(i).getAcompañante() == null){
+                                bfwriter.write("null");
+                                
+                            }else{
+                                bfwriter.write(pacientes.get(i).getAcompañante().getNombre()+","+pacientes.get(i).getAcompañante().getApellidos()+","+pacientes.get(i).getAcompañante().getId()+","+pacientes.get(i).getAcompañante().getTelefono());
+                            }
+                                
+                            } else{
+                            bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
+                            if(pacientes.get(i).getAcompañante() == null){
+                                bfwriter.write("null\n");
+                                
+                            }else{
+                                
+                                bfwriter.write(pacientes.get(i).getAcompañante().getNombre()+","+pacientes.get(i).getAcompañante().getApellidos()+","+pacientes.get(i).getAcompañante().getId()+","+pacientes.get(i).getAcompañante().getTelefono()+"\n");
+                            
+                            }
+                            }
+                        }
+                       
+                          
+			//cierra el buffer intermedio
+			bfwriter.close();
+			System.out.println("Archivo creado satisfactoriamente..");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (flwriter != null) {
+				try {//cierra el flujo principal
+					flwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+    
+    public static void leerArchivo(Hospital objhospital) {
+		// crea el flujo para leer desde el archivo
+		File file = new File("hospital.txt");
+		
+		Scanner scanner;
+             
+		try {
+			//se pasa el flujo al objeto scanner
+                        
+			scanner = new Scanner(file);
+			while (scanner.hasNextLine()) {
 
-    public void asignardatos(String id2,double saldo2)
-    {
-        id = id2;               
-        cantidad=saldo2;           
-        try
-        {
-            BufferedWriter Fescribe=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ficherodeposito,true)));//no se para que sirve
-            Fescribe.write(id+"    "+cantidad+"    "); //guarda en la base de datos los archivos                            //utf8 es un tipo de formato
-            Fescribe.write("\n");//para el salto de linea    
-            ioData.mostrarResultado("El producto ha sido insertado en la base de datos");
-            Fescribe.close();//cerrar el fichero y que los datos se queden escritos
-        }
-        catch(Exception ex)
-        {
-            ioData.mostrarResultado(ex.getMessage());
-        }
-    }
+				// el objeto scanner lee linea a linea desde el archivo
 
-    public void mostrararchivos()
-    {
-        try
-        {
-            FileReader fr=new FileReader("pacientes.txt");
-            BufferedReader br=new BufferedReader(fr);
-            String cadena;
-            while((cadena=br.readLine())!= null) //cuando el la siguiente linea leida no halla nada significa que termino de ller los datos del archivo
-            {
-                ioData.mostrarResultado(""+cadena); 
-            }
-        }
-        catch(Exception ex)
-        {
-            ioData.mostrarResultado(ex.getMessage());
-        }
-    }
+				String linea = scanner.nextLine();
+				Scanner delimitar = new Scanner(linea);
 
-    public void buscarregistro(String id2)
-    {
-        String usuario=id2;
-        try
-        {
-            BufferedReader leer=new BufferedReader(new FileReader ("pacientes.txt"));
-            String linea="";
-            while((linea=leer.readLine())!=null)
-            {
-                if (linea.indexOf(usuario)!=-1)
-                {
-                   ioData.mostrarResultado("se encontro el registro: "+linea);
-                }
-            }
-        }
-        catch(Exception ex)
-        {
-            ioData.mostrarResultado(ex.getMessage());
-        }
-    }
-    /*public void saldoderegistro(String id2)//para buscar un saldo 
-    {
-        String usuario=id2;
-        try
-        {
-            //declare hasta arriba private scanner entrada
-           // ioData = new InOut( new File( "pacientes.txt") );//va a ller datos dentro de deposito
-            BufferedReader leer=new BufferedReader(new FileReader ("pacientes.txt"));
-            String linea="";
-            while((linea=leer.readLine())!=null)
-            {
-                if (linea.indexOf(usuario)!=-1)//al encontrar el dato buscado 
-                {   //arturo  100 
-                    System.out.print("se encontro el registro: "+usuario);
-                    String id=ioData.solicitarNombre("id");//primero hay que obtener los datos antes para poder llegar al saldo
-                    double saldo=ioData.solicitarDoubles("saldo");
-                    if (saldo<0)
-                    {
-                        System.out.println(" su saldo es deudor, "+saldo);
-                    }
-                    else
-                    {
-                        System.out.println(" su saldo es acreedor, "+saldo);
-                    }
-                }
-            }
+                                delimitar.useDelimiter("\\s*,\\s*");
+                                
+        
+				Paciente e= new Paciente();
+				e.setId(delimitar.nextInt());
+				e.setEdad(delimitar.nextInt());              
+				e.setNombre(delimitar.next());
+                                e.setApellidos(delimitar.next());
+				e.setTelefono(delimitar.nextInt());
+				e.setCorreo(delimitar.next());
+                                String a = (delimitar.next());
+                               
+                               if(a.equalsIgnoreCase("null")){
 
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-    }*/
+                                   e.setAcompañante(null);
+                               }else{
+                           
+                                 Persona acompañante = new Persona();
+                           
+                                 acompañante.setNombre(a);               
+                                 acompañante.setApellidos(delimitar.next());
+                                 acompañante.setId(delimitar.nextInt());
+                                 acompañante.setTelefono(delimitar.nextInt());
+                                 e.setAcompañante(acompañante);
+                               }
+
+				objhospital.getPacientes().add(e);
+                               System.out.println(e.toString());;
+
+			}
+			//se cierra el ojeto scanner
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace(System.out);
+		}
+		     
+	}
+
 }

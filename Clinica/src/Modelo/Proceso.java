@@ -11,7 +11,7 @@ public class Proceso {
 
     InOut ioData = new InOut();
     public static Hospital hospitalproceso = new Hospital();
-    private ArrayList<Persona> lista_personas = new ArrayList<>();
+    public static ArrayList<Persona> lista_personas = new ArrayList<>();
     public Verificaciones verificaciones = new Verificaciones();
     int numeroPiso = 1;
 
@@ -250,7 +250,7 @@ public class Proceso {
         asignarCama(obj_paciente);
         while(obj_paciente.getTipo_cuidado()==null)
         {
-            ioData.mostrarResultado("NO HAY CUPO");
+            ioData.mostrarResultado("ERROR!\n INGRESE NUEVAMENTE LOS DATOS");
               asignarCama(obj_paciente);
         }
         hospitalproceso.setPaciente(obj_paciente);
@@ -316,6 +316,7 @@ public class Proceso {
         lista_personas.add(obj_persona);
     }
 
+
     public void insertarHistoria(Paciente obj_persona) {
         HistoriaClinica obj_historia = new HistoriaClinica();
 
@@ -330,7 +331,6 @@ public class Proceso {
 
         obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
 
-
         obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         while (verificaciones.validarNombre(obj_historia.getDescripcion())) {
             obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
@@ -343,42 +343,25 @@ public class Proceso {
         while (!verificaciones.validarNumeroPiso(piso)) {
             piso = ioData.solicitarEntero(hospitalproceso.mostrarPisos() + "\n\nDato no encontrado\nDigite el número del piso");
         }
+        Pisos obj_piso = verificaciones.returnPiso(piso);
         int tipo = ioData.solicitarEntero("TIPO CUIDADO\n1. Intensivo \n2.Intermedio \n3.Recuperacion\n\nDigite a qué tipo de cuidado entrará el paciente ");
         while (tipo <= 0 || tipo > 3) {
             tipo = ioData.solicitarEntero("TIPO CUIDADO\n1. Intensivo \n2.Intermedio \n3.Recuperacion\n\nDigite a qué tipo de cuidado entrará el paciente ");
         }
-        Pisos obj_piso = verificaciones.returnPiso(piso);
-
-        switch (tipo) {
-            case 1:
-                obj_paciente.setTipo_cuidado(obj_piso.getIntensivos());
-                obj_piso.getIntensivos().setOcupacion((obj_piso.getIntensivos().getOcupacion() + 1));
-                break;
-            case 2:
-                obj_paciente.setTipo_cuidado(obj_piso.getIntermedios());
-                obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion() + 1);
-                break;
-            case 3:
-                obj_paciente.setTipo_cuidado(obj_piso.getRecuperacion());
-                obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion() + 1);
-                break;
-        }
-
          switch (tipo) {
-             case 1:
-                
-                 if(obj_piso.getIntensivos().getCantidadDecamas()-obj_piso.getIntensivos().getOcupacion()!=0){
+             case 1:     
+                 if(obj_piso.getIntensivos()!=null&&obj_piso.getIntensivos().getCantidadDecamas()-obj_piso.getIntensivos().getOcupacion()!=0){
                  obj_piso.getIntensivos().setOcupacion((obj_piso.getIntensivos().getOcupacion()+1));
                  obj_paciente.setTipo_cuidado(obj_piso.getIntensivos());}
                  break;
              case 2:
                 
-                if(obj_piso.getIntermedios().getCantidadDecamas()-obj_piso.getIntermedios().getOcupacion()!=0){
+                if(obj_piso.getIntermedios()!=null&&obj_piso.getIntermedios().getCantidadDecamas()-obj_piso.getIntermedios().getOcupacion()!=0){
                   obj_paciente.setTipo_cuidado(obj_piso.getIntermedios());
                  obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion()+1);}
                  break;
              case 3:
-                if(obj_piso.getRecuperacion().getCantidadDecamas()-obj_piso.getRecuperacion().getOcupacion()!=0){
+                if(obj_piso.getRecuperacion()!=null&&obj_piso.getRecuperacion().getCantidadDecamas()-obj_piso.getRecuperacion().getOcupacion()!=0){
                  obj_paciente.setTipo_cuidado(obj_piso.getRecuperacion());
                  obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion()+1);}
                  break;
@@ -435,6 +418,7 @@ public class Proceso {
         }
         return acumulador;
     }
+
 
 }
 

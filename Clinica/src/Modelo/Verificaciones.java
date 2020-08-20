@@ -38,7 +38,7 @@ public class Verificaciones {
     }
     public boolean validarIdentificacion(int identificacion)
     {
-        for(Persona objpersona : hospitalproceso.getRegistro_paciente())
+        for(Persona objpersona : Proceso.lista_personas)
         {
             if(identificacion==objpersona.getId())
             {

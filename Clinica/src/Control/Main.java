@@ -22,20 +22,11 @@ public class Main {
        
        
     public static void main(String[] args) {
-        leerArchivo(Proceso.hospitalproceso);
-       // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
-       //   proceso.ingresarPaciente();
-       Cuidados obj_cuidado1 = new Cuidados(20,12);
-       Cuidados obj_cuidado2 = new Cuidados(10,5);      
-       Cuidados obj_cuidado3 = new Cuidados(7,4);
-  
-      
-       Pisos obj_piso = new Pisos(12,obj_cuidado1,obj_cuidado2,obj_cuidado3);
-   //   Proceso.hospitalproceso.setPiso(obj_piso);
+
+        manejoarchivos.leerArchivo(Proceso.hospitalproceso);
+     
         int opc,claveCom;
-        Paciente e= new Paciente();
-				
-                                
+                
          do{
             opc=inOut.solicitarEntero("Bienvenido al menú principal. \n "+
                                         "\n1.Menú Administrador "+
@@ -50,34 +41,32 @@ public class Main {
                    claveAdmin = claveCom;
                    String nombreH = inOut.solicitarNombre("Digite el nombre del hospital: ");
                    nombre = nombreH;
+                   Proceso.hospitalproceso.setNombre(nombre);
                    bandAdmin = true;
-                   proceso.menuAdministrador();
                    
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del administrador: ");
                     while(claveAdmin != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del administrador correctamente: ");
                     }
-                     proceso.menuAdministrador();
+                     
                }
-              
+              proceso.menuAdministrador();
                break;
             case 2: 
                 
                 if(bandRec == false){
+                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");     
+                   bandRec = true;
+               } 
+               else {
 
-                   claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
-                   claveRec = claveCom;
-                    bandRec = true;
-                   proceso.menuRepcionista();
-                  
-               } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
                     while(claveRec != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
-                    }
-                    proceso.menuRepcionista(); 
+                    }             
                }
+                 proceso.menuRepcionista(); 
                break;
                 
             case 3:
@@ -93,12 +82,12 @@ public class Main {
                     while(claveMedico != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina correctamente: ");
                     }
-                    proceso.menumedico();
+                   
                }
-               
+                proceso.menumedico();
                break;
             case 4:
-                crearArchivo(Proceso.hospitalproceso);
+                manejoarchivos.crearArchivo(Proceso.hospitalproceso);
                 System.exit(0);
                 break;
             case 5:
@@ -131,62 +120,7 @@ public class Main {
         return nombre;
     }
     
-        
-public static void crearArchivo(Hospital objhospital) {
-                ArrayList <Medico> medicos = objhospital.getMedicos();
-                ArrayList <Paciente> pacientes = objhospital.getPacientes();
-                ArrayList <Paciente> pacienteshistorial = objhospital.getRegistro_paciente();
-                ArrayList <EPS> epshospital = objhospital.getEps();
-                ArrayList <Pisos> pisoshospital = objhospital.getPisos();
-                Cuidados cuidados = new Cuidados(); 
-		FileWriter flwriter = null;
-		try {
-			//crea el flujo para escribir en el archivo
-			flwriter = new FileWriter("hospital.txt",false);
-			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
-			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-                      
-                       
-                        for(int i=0 ; i<pacientes.size(); i++){
-                            if(i == pacientes.size()-1){
-                                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
-                            if(pacientes.get(i).getAcompañante() == null){
-                                bfwriter.write("null");
-                                
-                            }else{
-                                bfwriter.write(pacientes.get(i).getAcompañante().getNombre()+","+pacientes.get(i).getAcompañante().getApellidos()+","+pacientes.get(i).getAcompañante().getId()+","+pacientes.get(i).getAcompañante().getTelefono());
-                            }
-                                
-                            } else{
-                            bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
-                            if(pacientes.get(i).getAcompañante() == null){
-                                bfwriter.write("null\n");
-                                
-                            }else{
-                                
-                                bfwriter.write(pacientes.get(i).getAcompañante().getNombre()+","+pacientes.get(i).getAcompañante().getApellidos()+","+pacientes.get(i).getAcompañante().getId()+","+pacientes.get(i).getAcompañante().getTelefono()+"\n");
-                            
-                            }
-                            }
-                        }
-                       
-                          
-			//cierra el buffer intermedio
-			bfwriter.close();
-			System.out.println("Archivo creado satisfactoriamente..");
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (flwriter != null) {
-				try {//cierra el flujo principal
-					flwriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+
 public static void crearArchivoRegistro(Hospital objhospital) {
               ArrayList<Paciente> pacientes =  objhospital.getPacientes();
               
@@ -203,10 +137,14 @@ public static void crearArchivoRegistro(Hospital objhospital) {
                                 for(HistoriaClinica historias : paciente.getHistoriaclinica() ){
                                   
                                   bfwriter.write(paciente.getId()+","+paciente.getNombre()+","+historias.getFechaHospitalizacion()+","+historias.getDescripcion()+","+historias.getMedicoencargado());
+
                                 }
                                 
+
+                                }                           
+
                             }
-                        }
+                        
                         bfwriter.write("%");
                        
 			//cierra el buffer intermedio
@@ -224,63 +162,7 @@ public static void crearArchivoRegistro(Hospital objhospital) {
 			}
 		}
 	}
-
-public static void leerArchivo(Hospital objhospital) {
-		// crea el flujo para leer desde el archivo
-		File file = new File("hospital.txt");
-		
-		Scanner scanner;
-             
-		try {
-			//se pasa el flujo al objeto scanner
-                        
-			scanner = new Scanner(file);
-			while (scanner.hasNextLine()) {
-				// el objeto scanner lee linea a linea desde el archivo
-                               
-				String linea = scanner.nextLine();
-				Scanner delimitar = new Scanner(linea);
-                               
-				//se usa una expresión regular
-				//que valida que antes o despues de una coma (,) exista cualquier cosa
-				//parte la cadena recibida cada vez que encuentre una coma
-                                  delimitar.useDelimiter("\\s*,\\s*");
-                                
-                                  
-				Paciente e= new Paciente();
-				e.setId(delimitar.nextInt());
-				e.setEdad(delimitar.nextInt());
-                                
-				e.setNombre(delimitar.next());
-                                e.setApellidos(delimitar.next());
-				e.setTelefono(delimitar.nextInt());
-				e.setCorreo(delimitar.next());
-                                String a = (delimitar.next());
-                               
-                               if(a.equalsIgnoreCase("null")){
-                            
-                                   e.setAcompañante(null);
-                               }else{
-                           
-                                 Persona acompañante = new Persona();
-                           
-                                 acompañante.setNombre(a);               
-                                 acompañante.setApellidos(delimitar.next());
-                                 acompañante.setId(delimitar.nextInt());
-                                 acompañante.setTelefono(delimitar.nextInt());
-                                 e.setAcompañante(acompañante);
-                               }
-                                
-				objhospital.getPacientes().add(e);
-                               System.out.println(e.toString());;
-			}
-			//se cierra el ojeto scanner
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace(System.out);
-		}
-		     
-	}
+        
 
 }
  
