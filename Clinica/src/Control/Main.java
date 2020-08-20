@@ -24,22 +24,7 @@ public class Main {
     public static void main(String[] args) {
         
         int opc,claveCom;
-        Paciente e= new Paciente();
-				e.setId(1234);
-				e.setEdad(23);
-				e.setNombre("jose");
-                                e.setApellidos("sancehz gomez");
-				e.setTelefono(1234);
-				e.setCorreo("josae23123");
-                                Proceso.hospitalproceso.setPaciente(e);
-                                Persona es= new Persona();
-				es.setId(1234);
-				es.setEdad(23);
-				es.setNombre("jose");
-                                es.setApellidos("sancehz gomez");
-				es.setTelefono(1234);
-				es.setCorreo("josae23123");
-                               // e.setAcompañante(es);
+
                                 
          do{
             opc=inOut.solicitarEntero("Bienvenido al menú principal. \n "+
@@ -55,7 +40,6 @@ public class Main {
                    claveAdmin = claveCom;
                    String nombreH = inOut.solicitarNombre("Digite el nombre del hospital: ");
                    nombre = nombreH;
-                   proceso.menuAdministrador();
                    bandAdmin = true;
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del administrador: ");
@@ -70,14 +54,10 @@ public class Main {
                 
                 if(bandRec == false){
 
-                   claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
-                   claveRec = claveCom;
-                   proceso.menuRepcionista();
-
-                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
-
+                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");     
                    bandRec = true;
-               } else {
+               } 
+                else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
                     while(claveRec != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
@@ -93,16 +73,15 @@ public class Main {
                 if(bandMedico == false){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
                    claveMedico = claveCom;
-                   proceso.menumedico();
                    bandMedico = true;
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
                     while(claveMedico != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina correctamente: ");
                     }
-                    proceso.menumedico();
+                   
                }
-               
+                proceso.menumedico();
                break;
             case 4:
                 crearArchivo(Proceso.hospitalproceso);
@@ -240,9 +219,9 @@ public static void leerArchivo() {
 				//se usa una expresión regular
 				//que valida que antes o despues de una coma (,) exista cualquier cosa
 				//parte la cadena recibida cada vez que encuentre una coma
-                                  delimitar.useDelimiter("\\s*,\\s*");
+                                delimitar.useDelimiter("\\s*,\\s*");
                                 
-                                  
+        
 				Paciente e= new Paciente();
 				e.setId(delimitar.nextInt());
 				e.setEdad(delimitar.nextInt());
@@ -254,7 +233,6 @@ public static void leerArchivo() {
                                 String a =(delimitar.next());
                                
                                if(a.equalsIgnoreCase("null")){
-                                   System.out.println("hola");
                                    e.setAcompañante(null);
                                }else{
                                  Persona acompañante = new Persona();

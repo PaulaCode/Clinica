@@ -12,7 +12,7 @@ public class Proceso {
     
      InOut ioData = new InOut();
     public static Hospital hospitalproceso = new Hospital();
-    private ArrayList<Persona> lista_personas = new ArrayList<>();
+    public static ArrayList<Persona> lista_personas = new ArrayList<>();
     public Verificaciones verificaciones = new Verificaciones();
     
     public void menumedico (){
