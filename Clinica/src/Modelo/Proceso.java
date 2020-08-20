@@ -66,7 +66,8 @@ public class Proceso {
                     + "\n3.Registrar médicos "
                     + "\n4.Cambiar clave"
                     + "\n5.Crear piso."
-                    + "\n6.Salir "
+                    + "\n6.Mostrar pisos "
+                    + "\n7.Salir "
                     + "\n\nDigite la opción que desee");
             switch (opc) {
                 case 1:
@@ -155,12 +156,15 @@ public class Proceso {
                                     int cantidadCamas = ioData.solicitarEntero("Digite la cantidad de camas de este cuidado.");
                                     pisos.setRecuperacion(new Cuidados(cantidadCamas, 0));
                                 }
-                            case 4:
-                                hospitalproceso.getPisos().add(pisos);
+                                break;
+                            case 4: 
+                                hospitalproceso.setPisos(pisos);
+
                                 numeroPiso++;
                                 break;
 
                         }
+
                     } while (opc1 != 4);
 
                     break;
@@ -171,40 +175,45 @@ public class Proceso {
 
     }
 
-    public void menuRepcionista() {
-        String mensaje = "Menú recepción\n";
-        mensaje += "\n1. Ingreso Paciente\n"
-                + "2. Otorgar salida\n"
-                + "3. Mostrar Pacientes\n"
-                + "4. Consultar Paciente\n"
-                + "5. Salir ";
-        int opcion = 0;
-        do {
-            opcion = ioData.solicitarEntero(mensaje + "\n\nDigite una opción");
-            switch (opcion) {
-                case 1: {
-                    ingresarPaciente();
-                    break;
-                }
-                case 2: {
-                    otorgarSalida();
-                    break;
-                }
-                case 3: {
-                    mostrarPacientes();
-                    break;
-                }
-                case 4: {
-                    buscarPaciente();
-                    break;
-                }
-                case 5: {
-                    break;
-                }
-                default: {
-                    ioData.mostrarResultado("Opción incorrecta");
-                    break;
-                }
+   public  void menuRepcionista()
+    {
+            String mensaje="Menú recepción\n";
+            mensaje+="\n1. Ingreso Paciente\n"
+                    +"2. Otorgar salida\n"+
+                    "3. Mostrar Pacientes\n"
+                    +"4. Consultar Paciente\n"
+                    +"5. Salir ";
+            int opcion=0;  
+            do
+            {
+             opcion = ioData.solicitarEntero(mensaje+"\n\nDigite una opción");
+                switch(opcion)
+               {
+                 case 1:{
+                     ingresarPaciente();
+                     break;
+                 }
+                 case 2:{
+                     if(!Proceso.hospitalproceso.getPacientes().isEmpty()){
+                     otorgarSalida();}
+                     break;
+                 }
+                 case 3:{
+                     mostrarPacientes();
+                     break;
+                 }
+                 case 4:{
+                     buscarPaciente();
+                     break;
+                 }
+                 case 5:{
+                     break;
+                 }
+                 default:{
+                     ioData.mostrarResultado("Opción incorrecta");
+                     break;
+                 }
+
             }
         } while (opcion != 5);
     }
@@ -241,6 +250,7 @@ public class Proceso {
             asignarAdulto(persona_encargada, obj_paciente);
         }
         insertarHistoria(obj_paciente);
+
         if (!hospitalproceso.getEps().isEmpty()) {
          acumulador = mostrarEPS();
         }else{
@@ -248,11 +258,16 @@ public class Proceso {
         }
         acumulador+= ("\n0.Ninguna \n\nDigite el código de su EPS");
         int codigo_eps = ioData.solicitarEntero(acumulador);
+
         if (codigo_eps != 0) {
             obj_paciente.setEps(verificaciones.returnEps(codigo_eps));
             while (obj_paciente.getEps() == null) {
                 if (codigo_eps != 0) {
+
                     codigo_eps = (ioData.solicitarEntero(acumulador));
+
+                    codigo_eps = (ioData.solicitarEntero(hospitalproceso.mostrarEps() + "\n0.Ninguna \n\nDigite el código de la EPS"));
+
                 }
                 obj_paciente.setEps(verificaciones.returnEps(codigo_eps));
             }
@@ -386,6 +401,7 @@ public class Proceso {
 
     public void otorgarSalida() {
         int id = ioData.solicitarEntero("Digite la identificación del paciente");
+        
         if (verificaciones.validarPaciente(id)) {
             Paciente objpaciente = verificaciones.returnPaciente(id);
             int numpiso = verificaciones.returnNumeroPiso(objpaciente.getTipo_cuidado());
@@ -403,7 +419,38 @@ public class Proceso {
                     obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion() - 1);
                     break;
             }
-            hospitalproceso.getPacientes().remove(verificaciones.returnPosPaciente(id));
+            int cantidad_dias = ioData.solicitarEntero("Digite la cantidad de días que el paciente permaneció hospitalizado");
+            while(cantidad_dias<=0)
+            {
+             cantidad_dias = ioData.solicitarEntero("Digite la cantidad de días que el paciente permaneció hospitalizado");   
+            }
+            double valor_dia = ioData.solicitarEntero("Digite el costo por día");
+            while(valor_dia<=0)
+            {
+              valor_dia = ioData.solicitarEntero("Digite el costo por día");  
+            }
+            double total = valor_dia*cantidad_dias;
+            double descuento =0;
+           
+                if(objpaciente.getTipobeneficio()==1){
+                    descuento = total*0.70;
+                    total-=descuento;
+                    ioData.mostrarResultado("Descuento del 70% \ntotal $"+total);
+                   
+                }
+                else if(objpaciente.getTipobeneficio()==2)
+                {
+                    descuento = total*0.50;
+                    total-=descuento;
+                    ioData.mostrarResultado("Descuento del 50% \ntotal $"+total);
+                }
+                else if (objpaciente.getTipobeneficio()==0){
+                    ioData.mostrarResultado("Sin descuento \ntotal $"+total); 
+                    
+                }
+            
+             hospitalproceso.getPacientes().remove(verificaciones.returnPosPaciente(id));
+            
         } else {
             ioData.mostrarResultado("Paciente no encontrado");
         }
