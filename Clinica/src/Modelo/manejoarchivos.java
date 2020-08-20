@@ -114,8 +114,7 @@ public class manejoarchivos
                                }
 
 				objhospital.getPacientes().add(e);
-                               System.out.println(e.toString());;
-
+        
 			}
 			//se cierra el ojeto scanner
 			scanner.close();
