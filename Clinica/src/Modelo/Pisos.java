@@ -10,6 +10,10 @@ public class Pisos {
     private Cuidados Intermedios;
     private Cuidados Recuperacion;
 
+    public Pisos(){
+        
+    }
+    
     public Pisos(int numpiso, Cuidados Intensivos, Cuidados Intermedios, Cuidados Recuperacion) {
         this.numpiso = numpiso;
         this.Intensivos = Intensivos;
@@ -52,16 +56,16 @@ public class Pisos {
     @Override
     public String toString() {
         String mensaje="";
-        mensaje+="Numero de piso: " + numpiso;
+        mensaje+="\nNúmero de piso: " + numpiso;
         if(Intensivos!=null){
-            mensaje+="Intensivos: \n" + Intensivos.toString(); 
+            mensaje+="\nIntensivos: \n" + Intensivos.toString(); 
                     
         }
         if(Intermedios!=null){
-            mensaje+="Intermedios: \n" + Intermedios.toString();
+            mensaje+="\nIntermedios: \n" + Intermedios.toString();
         }
         if(Recuperacion!=null){
-            mensaje+="Recuperacion: \n" + "Numero de habitaciones: " + Recuperacion.getCantidadDecamas();
+            mensaje+="\nRecuperacion: \n" + "Numero de habitaciones: " + Recuperacion.getCantidadDecamas();
         }
           return mensaje;
     }

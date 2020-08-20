@@ -40,32 +40,32 @@ public class Main {
                    claveAdmin = claveCom;
                    String nombreH = inOut.solicitarNombre("Digite el nombre del hospital: ");
                    nombre = nombreH;
+                   Proceso.hospitalproceso.setNombre(nombre);
                    bandAdmin = true;
+                   
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del administrador: ");
                     while(claveAdmin != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del administrador correctamente: ");
                     }
-                 
+                     
                }
-                  proceso.menuAdministrador();
+              proceso.menuAdministrador();
                break;
             case 2: 
                 
                 if(bandRec == false){
-
                    claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");     
                    bandRec = true;
                } 
-                else {
+               else {
+
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
                     while(claveRec != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
-                    }
-                    
-                    
+                    }             
                }
-                proceso.menuRepcionista(); 
+                 proceso.menuRepcionista(); 
                break;
                 
             case 3:
@@ -74,6 +74,8 @@ public class Main {
                    claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
                    claveMedico = claveCom;
                    bandMedico = true;
+                   proceso.menumedico();
+                   
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
                     while(claveMedico != claveCom){
@@ -212,20 +214,15 @@ public static void leerArchivo() {
                         
 			scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
-				// el objeto scanner lee linea a linea desde el archivo
 				String linea = scanner.nextLine();
 				Scanner delimitar = new Scanner(linea);
-                               
-				//se usa una expresión regular
-				//que valida que antes o despues de una coma (,) exista cualquier cosa
-				//parte la cadena recibida cada vez que encuentre una coma
+
                                 delimitar.useDelimiter("\\s*,\\s*");
                                 
         
 				Paciente e= new Paciente();
 				e.setId(delimitar.nextInt());
-				e.setEdad(delimitar.nextInt());
-                                
+				e.setEdad(delimitar.nextInt());              
 				e.setNombre(delimitar.next());
                                 e.setApellidos(delimitar.next());
 				e.setTelefono(delimitar.nextInt());
