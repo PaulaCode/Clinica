@@ -22,7 +22,7 @@ public class Main {
        
        
     public static void main(String[] args) {
-        
+        leerArchivo(Proceso.hospitalproceso);
        // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
        //   proceso.ingresarPaciente();
        Cuidados obj_cuidado1 = new Cuidados(20,12);
@@ -34,21 +34,7 @@ public class Main {
    //   Proceso.hospitalproceso.setPiso(obj_piso);
         int opc,claveCom;
         Paciente e= new Paciente();
-				e.setId(1234);
-				e.setEdad(23);
-				e.setNombre("jose");
-                                e.setApellidos("sancehz gomez");
-				e.setTelefono(1234);
-				e.setCorreo("josae23123");
-                                Proceso.hospitalproceso.setPaciente(e);
-                                Persona es= new Persona();
-				es.setId(1234);
-				es.setEdad(23);
-				es.setNombre("jose");
-                                es.setApellidos("sancehz gomez");
-				es.setTelefono(1234);
-				es.setCorreo("josae23123");
-                               // e.setAcompañante(es);
+				
                                 
          do{
             opc=inOut.solicitarEntero("Bienvenido al menú principal. \n "+
@@ -116,11 +102,12 @@ public class Main {
                 System.exit(0);
                 break;
             case 5:
-                leerArchivo();
+                
+                break;
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
-        }while(opc!=5);
+        }while(opc!=6);
         
     }
 
@@ -144,7 +131,6 @@ public class Main {
         return nombre;
     }
     
-   
         
 public static void crearArchivo(Hospital objhospital) {
                 ArrayList <Medico> medicos = objhospital.getMedicos();
@@ -161,24 +147,33 @@ public static void crearArchivo(Hospital objhospital) {
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
                       
                        
-                        for(Paciente paciente : pacientes){
-                            bfwriter.write(paciente.getId()+","+paciente.getEdad()+","+paciente.getNombre()+","+paciente.getApellidos()+","+paciente.getTelefono()+","+paciente.getCorreo()+",");
-                            if(paciente.getAcompañante() == null){
+                        for(int i=0 ; i<pacientes.size(); i++){
+                            if(i == pacientes.size()-1){
+                                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
+                            if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null");
                                 
                             }else{
+                                bfwriter.write(pacientes.get(i).getAcompañante().getNombre()+","+pacientes.get(i).getAcompañante().getApellidos()+","+pacientes.get(i).getAcompañante().getId()+","+pacientes.get(i).getAcompañante().getTelefono());
+                            }
                                 
+                            } else{
+                            bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+",");
+                            if(pacientes.get(i).getAcompañante() == null){
+                                bfwriter.write("null\n");
                                 
-                                bfwriter.write(","+paciente.getAcompañante().getNombre()+","+paciente.getAcompañante().getApellidos()+","+paciente.getAcompañante().getId()+","+paciente.getAcompañante().getTelefono());
+                            }else{
+                                
+                                bfwriter.write(pacientes.get(i).getAcompañante().getNombre()+","+pacientes.get(i).getAcompañante().getApellidos()+","+pacientes.get(i).getAcompañante().getId()+","+pacientes.get(i).getAcompañante().getTelefono()+"\n");
                             
                             }
-                            
+                            }
                         }
                        
                           
 			//cierra el buffer intermedio
 			bfwriter.close();
-			System.out.println("Archivo de medicos creado satisfactoriamente..");
+			System.out.println("Archivo creado satisfactoriamente..");
  
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -210,7 +205,6 @@ public static void crearArchivoRegistro(Hospital objhospital) {
                                   bfwriter.write(paciente.getId()+","+paciente.getNombre()+","+historias.getFechaHospitalizacion()+","+historias.getDescripcion()+","+historias.getMedicoencargado());
                                 }
                                 
-                                
                             }
                         }
                         bfwriter.write("%");
@@ -231,10 +225,10 @@ public static void crearArchivoRegistro(Hospital objhospital) {
 		}
 	}
 
-public static void leerArchivo() {
+public static void leerArchivo(Hospital objhospital) {
 		// crea el flujo para leer desde el archivo
 		File file = new File("hospital.txt");
-		ArrayList <Paciente>listadepacientes= new ArrayList<Paciente>();
+		
 		Scanner scanner;
              
 		try {
@@ -243,6 +237,7 @@ public static void leerArchivo() {
 			scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
 				// el objeto scanner lee linea a linea desde el archivo
+                               
 				String linea = scanner.nextLine();
 				Scanner delimitar = new Scanner(linea);
                                
@@ -260,34 +255,31 @@ public static void leerArchivo() {
                                 e.setApellidos(delimitar.next());
 				e.setTelefono(delimitar.nextInt());
 				e.setCorreo(delimitar.next());
-                                String a =(delimitar.next());
+                                String a = (delimitar.next());
                                
                                if(a.equalsIgnoreCase("null")){
-                                   System.out.println("hola");
+                            
                                    e.setAcompañante(null);
                                }else{
+                           
                                  Persona acompañante = new Persona();
-                                 acompañante.setNombre(delimitar.next());
+                           
+                                 acompañante.setNombre(a);               
                                  acompañante.setApellidos(delimitar.next());
                                  acompañante.setId(delimitar.nextInt());
                                  acompañante.setTelefono(delimitar.nextInt());
-                                        e.setAcompañante(acompañante);
+                                 e.setAcompañante(acompañante);
                                }
-				listadepacientes.add(e);
-                                      
-                             
                                 
-				
+				objhospital.getPacientes().add(e);
+                               System.out.println(e.toString());;
 			}
 			//se cierra el ojeto scanner
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace(System.out);
 		}
-		for(int i=0;i<listadepacientes.size();i++){
-                    System.out.println(listadepacientes.get(i).toString());
-                }
-                        
+		     
 	}
 
 }

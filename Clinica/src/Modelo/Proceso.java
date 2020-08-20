@@ -348,7 +348,7 @@ public class Proceso {
             tipo = ioData.solicitarEntero("TIPO CUIDADO\n1. Intensivo \n2.Intermedio \n3.Recuperacion\n\nDigite a qué tipo de cuidado entrará el paciente ");
         }
         Pisos obj_piso = verificaciones.returnPiso(piso);
-<<<<<<< HEAD
+
         switch (tipo) {
             case 1:
                 obj_paciente.setTipo_cuidado(obj_piso.getIntensivos());
@@ -363,7 +363,7 @@ public class Proceso {
                 obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion() + 1);
                 break;
         }
-=======
+
          switch (tipo) {
              case 1:
                 
@@ -383,7 +383,6 @@ public class Proceso {
                  obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion()+1);}
                  break;
          }
->>>>>>> a14cc22301cae06a4c9a1fac0cc1b020fef026e4
     }
 
     public void otorgarSalida() {
