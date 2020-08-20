@@ -198,6 +198,11 @@ public class Proceso {
             
         }
         asignarCama(obj_paciente);
+        while(obj_paciente.getTipo_cuidado()==null)
+        {
+            ioData.mostrarResultado("NO HAY CUPO");
+              asignarCama(obj_paciente);
+        }
         hospitalproceso.setPaciente(obj_paciente);
         lista_personas.add(obj_paciente);
     }
@@ -316,16 +321,21 @@ public class Proceso {
         Pisos obj_piso = verificaciones.returnPiso(piso);
          switch (tipo) {
              case 1:
-                 obj_paciente.setTipo_cuidado(obj_piso.getIntensivos());
+                
+                 if(obj_piso.getIntensivos().getCantidadDecamas()-obj_piso.getIntensivos().getOcupacion()!=0){
                  obj_piso.getIntensivos().setOcupacion((obj_piso.getIntensivos().getOcupacion()+1));
+                 obj_paciente.setTipo_cuidado(obj_piso.getIntensivos());}
                  break;
              case 2:
-                 obj_paciente.setTipo_cuidado(obj_piso.getIntermedios());
-                 obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion()+1);
+                
+                if(obj_piso.getIntermedios().getCantidadDecamas()-obj_piso.getIntermedios().getOcupacion()!=0){
+                  obj_paciente.setTipo_cuidado(obj_piso.getIntermedios());
+                 obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion()+1);}
                  break;
              case 3:
+                if(obj_piso.getRecuperacion().getCantidadDecamas()-obj_piso.getRecuperacion().getOcupacion()!=0){
                  obj_paciente.setTipo_cuidado(obj_piso.getRecuperacion());
-                 obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion()+1);
+                 obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion()+1);}
                  break;
          }
     }
