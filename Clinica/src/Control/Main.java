@@ -23,15 +23,6 @@ public class Main {
        
     public static void main(String[] args) {
         
-       // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
-       //   proceso.ingresarPaciente();
-       Cuidados obj_cuidado1 = new Cuidados(20,12);
-       Cuidados obj_cuidado2 = new Cuidados(10,5);      
-       Cuidados obj_cuidado3 = new Cuidados(7,4);
-  
-      
-       Pisos obj_piso = new Pisos(12,obj_cuidado1,obj_cuidado2,obj_cuidado3);
-       Proceso.hospitalproceso.setPiso(obj_piso);
         int opc,claveCom;
         Paciente e= new Paciente();
 				e.setId(1234);
@@ -210,9 +201,7 @@ public static void crearArchivoRegistro(Hospital objhospital) {
                                 for(HistoriaClinica historias : paciente.getHistoriaclinica() ){
                                   
                                   bfwriter.write(paciente.getId()+","+paciente.getNombre()+","+historias.getFechaHospitalizacion()+","+historias.getDescripcion()+","+historias.getMedicoencargado());
-                                }
-                                
-                                
+                                }                           
                             }
                         }
                         bfwriter.write("%");
@@ -276,10 +265,7 @@ public static void leerArchivo() {
                                         e.setAcompañante(acompañante);
                                }
 				listadepacientes.add(e);
-                                      
-                             
-                                
-				
+		
 			}
 			//se cierra el ojeto scanner
 			scanner.close();
