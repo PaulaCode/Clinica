@@ -4,7 +4,15 @@ package Control;
 import Modelo.*;
 import Vista.InOut;
 
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Main {
@@ -21,7 +29,8 @@ public class Main {
         manejoarchivos.leerArchivo(Proceso.hospitalproceso);
      
         int opc,claveCom;
-                
+
+
          do{
             opc=inOut.solicitarEntero("Bienvenido al menú principal. \n "+
                                         "\n1.Menú Administrador "+
@@ -85,12 +94,13 @@ public class Main {
                 proceso.menumedico();
                break;
             case 4:
-                manejoarchivos.crearArchivo(Proceso.hospitalproceso);
-                System.exit(0);
+               
+               manejoarchivos.crearArchivo(Proceso.hospitalproceso);
+               manejoarchivos.crearHistoria(Proceso.hospitalproceso);
+               
+            System.exit(0);
                 break;
-            case 5:
-                
-                break;
+     
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
@@ -117,6 +127,7 @@ public class Main {
     public static String getNombre() {
         return nombre;
     }
+
 
   
 }

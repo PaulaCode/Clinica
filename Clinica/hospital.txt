@@ -1,2 +1,8 @@
+<<<<<<< HEAD
+1234,43,oscar,antonio guzmas,123132,josd231,null
+123444,21,dan,sofio fuas,123,isad213,null
+1234,43,karla,mishell gonzales,12311,joasd231,null
+=======
 446,34,dsg,dfh tur,436,rtfh,null
 123,34,fdh,dsg dg,46,fdh,null
+>>>>>>> d44dc4d1ed987607ebc45096ec093a77efec42c9
