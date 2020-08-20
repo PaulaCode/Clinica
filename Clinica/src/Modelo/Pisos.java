@@ -10,6 +10,10 @@ public class Pisos {
     private Cuidados Intermedios;
     private Cuidados Recuperacion;
 
+    public Pisos(){
+        
+    }
+    
     public Pisos(int numpiso, Cuidados Intensivos, Cuidados Intermedios, Cuidados Recuperacion) {
         this.numpiso = numpiso;
         this.Intensivos = Intensivos;

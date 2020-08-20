@@ -65,16 +65,17 @@ public class Main {
                    claveAdmin = claveCom;
                    String nombreH = inOut.solicitarNombre("Digite el nombre del hospital: ");
                    nombre = nombreH;
-                   proceso.menuAdministrador();
                    bandAdmin = true;
+                   proceso.menuAdministrador();
+                   
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del administrador: ");
                     while(claveAdmin != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del administrador correctamente: ");
                     }
-                 
+                     proceso.menuAdministrador();
                }
-                  proceso.menuAdministrador();
+              
                break;
             case 2: 
                 
@@ -82,20 +83,16 @@ public class Main {
 
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
                    claveRec = claveCom;
+                    bandRec = true;
                    proceso.menuRepcionista();
-
-                   claveRec=inOut.solicitarEntero("Ingrese la clave de la recepción: ");
-
-                   bandRec = true;
+                  
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción ");
                     while(claveRec != claveCom){
                    claveCom=inOut.solicitarEntero("Ingrese la clave de la recepción correctamente: ");              
                     }
-                    
-                    
+                    proceso.menuRepcionista(); 
                }
-                proceso.menuRepcionista(); 
                break;
                 
             case 3:
@@ -103,8 +100,9 @@ public class Main {
                 if(bandMedico == false){
                    claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
                    claveMedico = claveCom;
-                   proceso.menumedico();
                    bandMedico = true;
+                   proceso.menumedico();
+                   
                } else {
                     claveCom=inOut.solicitarEntero("Ingrese la clave del personal de medicina: ");
                     while(claveMedico != claveCom){
