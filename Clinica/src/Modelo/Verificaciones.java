@@ -224,4 +224,25 @@ public class Verificaciones {
         return -1;
         
     }
+    
+    public boolean verificarNombreEPS(String nombre){
+        
+        for(int i=0; i< hospitalproceso.getEps().size(); i++)
+        {
+            if(hospitalproceso.getEps().get(i).getNombre().equalsIgnoreCase(nombre))
+            {
+                return true;
+            }
+        }
+        return false;
+        
+    }
+    
+    public boolean verificarMayorEdad(int edad){
+        
+        if(edad < 18 || edad > 120 ){
+            return true;
+        }
+        return false;
+    }
 }

@@ -62,6 +62,9 @@ public class Main {
                     }             
                }
                  proceso.menuRepcionista(); }
+                else{
+                    inOut.mostrarResultado("No hay médicos y/o pisos para poder ser atendido.");
+                }
                break;
                 
             case 3:
