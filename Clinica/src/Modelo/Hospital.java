@@ -52,6 +52,9 @@ public class Hospital {
     public void setPisos(Pisos pisos) {
         this.pisos.add(pisos);
     }
+    public void setPiso(Pisos pisos) {
+        this.pisos.add(pisos);
+    }
 
     public ArrayList<EPS> getEps() {
         return eps;

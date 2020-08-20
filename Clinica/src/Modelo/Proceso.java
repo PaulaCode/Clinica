@@ -57,6 +57,7 @@ public class Proceso {
         int opc;
         ArrayList<EPS> eps = hospitalproceso.getEps();
         ArrayList<Medico> medico = hospitalproceso.getMedicos();
+
         do {
             opc = ioData.solicitarEntero("Hospital " + Main.getNombre()
                     + "\n1.Registrar EPS "
@@ -156,64 +157,69 @@ public class Proceso {
                             
                         break;
                       case 6: break;    
-                
-            default: ioData.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
-            } 
- 
-        
+                 }
             }
             while (opc != 6);
-
+              
         }
-
-    public void menuRepcionista() {
-        String mensaje = "Menú recepción\n";
-        mensaje += "\n1. Ingreso Paciente\n"
-                + "2. Otorgar salida\n"
-                + "3. Mostrar Pacientes\n"
-                + "4. Consultar Paciente\n"
-                + "5. Salir ";
-        int opcion = 0;
-        do {
-            opcion = ioData.solicitarEntero(mensaje + "\n\nDigite una opción");
-            switch (opcion) {
-                case 1: {
-                    ingresarPaciente();
-                    break;
-                }
-                case 2: {
-                    break;
-                }
-                case 3: {
-                    mostrarPacientes();
-                    break;
-                }
-                case 4: {
-                    buscarPaciente();
-                    break;
-                }
-                case 5: {
-                    break;
-                }
-                default: {
-                    ioData.mostrarResultado("Opción incorrecta");
-                    break;
-                }
+    
+    
+   public  void menuRepcionista()
+    {
+            String mensaje="Menú recepción\n";
+            mensaje+="\n1. Ingreso Paciente\n"
+                    +"2. Otorgar salida\n"+
+                    "3. Mostrar Pacientes\n"
+                    +"4. Consultar Paciente\n"
+                    +"5. Salir ";
+            int opcion=0;  
+            do
+            {
+             opcion = ioData.solicitarEntero(mensaje+"\n\nDigite una opción");
+                switch(opcion)
+               {
+                 case 1:{
+                     ingresarPaciente();
+                     break;
+                 }
+                 case 2:{
+                     otorgarSalida();
+                     break;
+                 }
+                 case 3:{
+                     mostrarPacientes();
+                     break;
+                 }
+                 case 4:{
+                     buscarPaciente();
+                     break;
+                 }
+                 case 5:{
+                     break;
+                 }
+                 default:{
+                     ioData.mostrarResultado("Opción incorrecta");
+                     break;
+                 }
             }
-        } while (opcion != 5);
-    }
+         }
+         while(opcion!=5);
+       }
+   
+   public void ingresarMedico(){
+       
+       Medico obj_Medico = new Medico();
+       insertarPersona(obj_Medico);
+       
+       String especializacion = ioData.solicitarNombre("Escriba en qué se especializa el médico.");
+       int carnet = ioData.solicitarEntero("Digite el carnet");
+       while(verificaciones.returnCarnet(carnet)!= -1){
+           carnet = ioData.solicitarEntero("El carnet está repetido. \nDigite el carnet");
+       }
+       obj_Medico.setCarnet(carnet);
+       obj_Medico.setEspecializacion(especializacion);
+       hospitalproceso.setMedico(obj_Medico);
 
-    public void ingresarMedico() {
-
-        Medico obj_Medico = new Medico();
-        insertarPersona(obj_Medico);
-
-        String especializacion = ioData.solicitarNombre("Escriba en qué se especializa el médico.");
-        int carnet = ioData.solicitarEntero("Digite el carnet");
-        while (verificaciones.returnCarnet(carnet) != -1) {
-            carnet = ioData.solicitarEntero("El carnet está repetido. \nDigite el carnet");
-        }
-        hospitalproceso.setMedico(obj_Medico);
         lista_personas.add(obj_Medico);
     }
 
@@ -318,6 +324,8 @@ public class Proceso {
         }
 
         obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
+
+
         obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         while (verificaciones.validarNombre(obj_historia.getDescripcion())) {
             obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
@@ -403,3 +411,6 @@ public class Proceso {
     }
 
 }
+
+
+

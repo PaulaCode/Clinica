@@ -1,15 +1,7 @@
 
 package Control;
 
-import Modelo.Cuidados;
-import Modelo.EPS;
-import Modelo.HistoriaClinica;
-import Modelo.Hospital;
-import Modelo.Medico;
-import Modelo.Paciente;
-import Modelo.Persona;
-import Modelo.Pisos;
-import Modelo.Proceso;
+import Modelo.*;
 import Vista.InOut;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,6 +25,13 @@ public class Main {
         
        // Proceso.hospitalproceso.setNombreEps(new EPS("coompensar",123));
        //   proceso.ingresarPaciente();
+       Cuidados obj_cuidado1 = new Cuidados(20,12);
+       Cuidados obj_cuidado2 = new Cuidados(10,5);      
+       Cuidados obj_cuidado3 = new Cuidados(7,4);
+  
+      
+       Pisos obj_piso = new Pisos(12,obj_cuidado1,obj_cuidado2,obj_cuidado3);
+       Proceso.hospitalproceso.setPiso(obj_piso);
         int opc,claveCom;
         Paciente e= new Paciente();
 				e.setId(1234);
@@ -231,11 +230,11 @@ public static void crearArchivoRegistro(Hospital objhospital) {
 			}
 		}
 	}
+
 public static void leerArchivo() {
 		// crea el flujo para leer desde el archivo
 		File file = new File("hospital.txt");
 		ArrayList <Paciente>listadepacientes= new ArrayList<Paciente>();
-                ArrayList <Medico> medicos = new ArrayList<Medico>();
 		Scanner scanner;
              
 		try {
@@ -283,13 +282,14 @@ public static void leerArchivo() {
 			//se cierra el ojeto scanner
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(System.out);
 		}
 		for(int i=0;i<listadepacientes.size();i++){
                     System.out.println(listadepacientes.get(i).toString());
                 }
                         
 	}
+
 }
  
 
