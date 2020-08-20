@@ -273,8 +273,8 @@ public class Proceso {
     {
         HistoriaClinica obj_historia = new HistoriaClinica();
 
-        obj_historia.setFechaHospitalizacion("Digite la fecha de hospitalización en formato dd-mm-yyyy");
-        while(!verificaciones.validarFecha(obj_historia.getFechaHospitalizacion()))
+       
+        
 
         obj_historia.setFechaHospitalizacion(ioData.solicitarNombre("Digite la fecha de hospitalización en formato dd-mm-yyyy"));
         while(!verificaciones.validarFecha(obj_historia.getFechaHospitalizacion()))
@@ -288,10 +288,7 @@ public class Proceso {
           carnet = ioData.solicitarEntero("El médico ingresado no se encuentra\n"+hospitalproceso.mostrarMedicosE()+"\n\n Digite el carnet del médico");
         }
 
-        obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
-        obj_historia.setDescripcion("Digite la causa por la que el paciente fue hospitalizado");
-        while(verificaciones.validarNombre(obj_historia.getDescripcion()))
-
+       
         obj_historia.setMedicoencargado(verificaciones.returnMedico(carnet));
         obj_historia.setDescripcion(ioData.solicitarNombre("Digite la causa por la que el paciente fue hospitalizado"));
         while(verificaciones.validarNombre(obj_historia.getDescripcion()))
@@ -386,6 +383,10 @@ public class Proceso {
         return acumulador;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1f773fde07c79e516827719b8f3dbf8a9c71e5ef
     public boolean validarFecha(String fecha)
     {
         try
@@ -574,4 +575,8 @@ public class Proceso {
         return false;
     }
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 1f773fde07c79e516827719b8f3dbf8a9c71e5ef
 }
