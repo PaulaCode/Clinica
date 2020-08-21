@@ -68,26 +68,28 @@ public class Paciente extends Persona {
     
     @Override
     public String toString(){
-        Proceso obj_proceso= new Proceso();
+      
         String mensaje="";
         mensaje+= super.toString();
         if(acompañante!= null){
-            mensaje+="Acompañante: "+acompañante.getNombre()+" \n";
+            mensaje+="\nAcompañante: "+acompañante.getNombre()+" \n";
         }
         for(int i=0;i<historiaclinica.size();i++){
-            mensaje+=historiaclinica.toString();
+            mensaje+=historiaclinica.get(i).toString();
          
         }
-        if(Tipobeneficio == 1 ){
-            mensaje+="Beneficio de cotizante al 70%";
-            
-        } 
-        else if(Tipobeneficio == 2 ){
-            mensaje+="Beneficio de beneficiaro al 50%";
-            
-        }
-        else if (Tipobeneficio ==0){
-            mensaje += "No aplica para el descuento por que no tiene eps ";
+        switch (Tipobeneficio) {
+            case 1:
+                mensaje+="\nBeneficio de cotizante al 70%";
+                break;
+            case 2:
+                mensaje+="\nBeneficio de beneficiaro al 50%";
+                break;
+            case 0:
+                mensaje += "\nNo aplica para el descuento por que no tiene eps ";
+                break;
+            default:
+                break;
         }
         return mensaje;
     }

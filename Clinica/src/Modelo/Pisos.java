@@ -22,7 +22,7 @@ public class Pisos {
     }
 
     public int getNumpiso() {
-        return numpiso;
+        return this.numpiso;
     }
 
     public void setNumpiso(int numpiso) {
@@ -56,6 +56,7 @@ public class Pisos {
     @Override
     public String toString() {
         String mensaje="";
+        mensaje+="-----------------------------------------------";
         mensaje+="\nNúmero de piso: " + numpiso;
         if(Intensivos!=null){
             mensaje+="\nIntensivos: \n" + Intensivos.toString(); 
@@ -65,8 +66,11 @@ public class Pisos {
             mensaje+="\nIntermedios: \n" + Intermedios.toString();
         }
         if(Recuperacion!=null){
-            mensaje+="\nRecuperacion: \n" + "Numero de habitaciones: " + Recuperacion.getCantidadDecamas()+"\n";
+
+            mensaje+="\nRecuperacion: \n" + "Numero de habitaciones: " + Recuperacion.getCantidadDecamas() +" Disponibles: " + (Recuperacion.getCantidadDecamas()-Recuperacion.getOcupacion()+"\n") ;
+
         }
+        mensaje+="-----------------------------------------------";
           return mensaje;
     }
     

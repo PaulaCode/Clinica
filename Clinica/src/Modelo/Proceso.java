@@ -58,14 +58,23 @@ public class Proceso {
 
         int carnet = ioData.solicitarEntero("Digite el carnet del doctor.");
         Medico obj_Medico = verificaciones.returnMedico(carnet);
+        while(obj_Medico == null){
+            carnet = ioData.solicitarEntero("Carnet incorrecto. \nDigite el carnet del doctor.");
+            obj_Medico = verificaciones.returnMedico(carnet);
+        }
         HistoriaClinica historia = new HistoriaClinica();
         String acumulador = "";
         acumulador = mostrarPacientes();
         acumulador += ("Digite la identificación del paciente a quien quiere atender");
         int cedula = ioData.solicitarEntero(acumulador);
         Paciente paciente = verificaciones.returnPaciente(cedula);
+        while(paciente == null){
+            ioData.mostrarResultado("Identificación incorrecta.");
+            cedula = ioData.solicitarEntero(acumulador);
+             paciente = verificaciones.returnPaciente(cedula);
+        }
         String fecha = ioData.solicitarNombre("Digite la fecha: ");
-        while(verificaciones.validarFecha(fecha)){
+        while(!verificaciones.validarFecha(fecha)){
             fecha = ioData.solicitarNombre("Fecha incorrecta. \nEscribe la fecha correctamente: ");
         }
         String descripcion = ioData.solicitarNombre("Digite el procedimiento que le realiza al paciente");
@@ -74,6 +83,20 @@ public class Proceso {
         }
         paciente.setHistoria(new HistoriaClinica(fecha, obj_Medico, descripcion));
 
+    }
+    
+    public void mostrarLista(){
+      ioData.mostrarResultado(hospitalproceso.mostrarHistorial());
+    }
+        
+    public void buscarPaciente() {
+        int id = ioData.solicitarEntero("Digite la identificación del paciente");
+        if (verificaciones.validarPaciente(id)) {
+            ioData.mostrarResultado(verificaciones.returnPaciente(id).toString());
+        } else {
+            ioData.mostrarResultado("Paciente no encontrado");
+        }
+        
     }
 
     public void menuAdministrador() {
@@ -139,7 +162,7 @@ public class Proceso {
                 case 5:
                     int opc1;
                     Pisos pisos = new Pisos();
-                    pisos.setNumpiso(numeroPiso);
+         
                     do {
                         opc1 = ioData.solicitarEntero("Opción pisos: "
                                 + "\n1.Cuidados intensivos "
@@ -179,10 +202,12 @@ public class Proceso {
                                     pisos.setRecuperacion(new Cuidados(cantidadCamas, 0));
                                 }
                                 break;
-                            case 4:
-                                hospitalproceso.setPisos(pisos);
 
-                                numeroPiso++;
+                            case 4: 
+                                pisos.setNumpiso(hospitalproceso.getPisos().size()+1);
+
+                                hospitalproceso.setPisos(pisos);
+                              
                                 break;
 
                         }
@@ -190,8 +215,10 @@ public class Proceso {
                     } while (opc1 != 4);
 
                     break;
+
                 case 6:
                     ioData.mostrarResultado(hospitalproceso.mostrarPisos());
+                    break;
                 case 7:
                     break;
             }
@@ -487,18 +514,26 @@ public class Proceso {
         if (verificaciones.validarPaciente(id)) {
             Paciente objpaciente = verificaciones.returnPaciente(id);
             int numpiso = verificaciones.returnNumeroPiso(objpaciente.getTipo_cuidado());
+       
             Pisos obj_piso = verificaciones.returnPiso(numpiso);
             int tipo = verificaciones.returnTipoCuidado(objpaciente.getTipo_cuidado());
             switch (tipo) {
                 case 1:
                     obj_piso.getIntensivos().setOcupacion((obj_piso.getIntensivos().getOcupacion() - 1));
+                    hospitalproceso.getPisos().get(numpiso-1).setIntensivos(obj_piso.getIntensivos());
                     break;
                 case 2:
 
-                    obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion() - 1);
+                    obj_piso.getIntermedios().setOcupacion(obj_piso.getIntermedios().getOcupacion()- 1);
+                   hospitalproceso.getPisos().get(numpiso-1).setIntermedios(obj_piso.getIntermedios());
                     break;
                 case 3:
                     obj_piso.getRecuperacion().setOcupacion(obj_piso.getRecuperacion().getOcupacion() - 1);
+                    hospitalproceso.getPisos().get(numpiso-1).setRecuperacion(obj_piso.getRecuperacion());
+                    break;
+                default: 
+                    ioData.mostrarResultado("Habitación no encontrada");
+                  
                     break;
             }
             int cantidad_dias = ioData.solicitarEntero("Digite la cantidad de días que el paciente permaneció hospitalizado");
@@ -525,8 +560,7 @@ public class Proceso {
                 ioData.mostrarResultado("Sin descuento \ntotal $" + total);
 
             }
-            int tipo1 = tipoDe(objpaciente);
-            agregarDisponibilidad(tipo1);
+           
             hospitalproceso.getPacientes().remove(verificaciones.returnPosPaciente(id));
 
         } else {
@@ -534,50 +568,11 @@ public class Proceso {
         }
     }
     
-    public void agregarDisponibilidad(int numero){
-        
-        for(int i=0 ; i< hospitalproceso.getPisos().size(); i++){
-             if(numero == 1){
-                 if(hospitalproceso.getPisos().get(i).getIntensivos() != null)
-                     hospitalproceso.getPisos().get(i).getIntensivos().setOcupacion( hospitalproceso.getPisos().get(i).getIntensivos().getOcupacion()-1);
-        }
-             if(numero ==2){
-                 if(hospitalproceso.getPisos().get(i).getIntermedios() != null)
-                     hospitalproceso.getPisos().get(i).getIntensivos().setOcupacion( hospitalproceso.getPisos().get(i).getIntensivos().getOcupacion()-1);
-        }
-             
-             if(numero == 3){
-                 if(hospitalproceso.getPisos().get(i).getIntermedios() != null)
-                     hospitalproceso.getPisos().get(i).getIntensivos().setOcupacion( hospitalproceso.getPisos().get(i).getIntensivos().getOcupacion()-1);
-        }
-        }
-    }
-    
-    public int tipoDe(Paciente paciente){
-        
-        for(int i=0 ; i<hospitalproceso.getPisos().size(); i++){
-            if(paciente.getTipo_cuidado().equals(hospitalproceso.getPisos().get(i).getIntensivos()))
-                return 1;
-            if(paciente.getTipo_cuidado().equals(hospitalproceso.getPisos().get(i).getIntermedios()))
-                return 2;
-             if(paciente.getTipo_cuidado().equals(hospitalproceso.getPisos().get(i).getRecuperacion()))
-                 return 3;
-        }
-        return -1;
-    }
     
     public String mostrarPacientes() {
         return hospitalproceso.mostrarPacientes();
     }
 
-    public void buscarPaciente() {
-        int id = ioData.solicitarEntero("Digite la identificación del paciente");
-        if (verificaciones.validarPaciente(id)) {
-            ioData.mostrarResultado(verificaciones.returnPaciente(id).toString());
-        } else {
-            ioData.mostrarResultado("Paciente no encontrado");
-        }
-    }
 
     public String mostrarEPS() {
 
