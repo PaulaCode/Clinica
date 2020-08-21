@@ -105,12 +105,19 @@ public class Hospital {
     }
     public String mostrarPacientes()
     {
+        Verificaciones verificaciones = new Verificaciones();
         String mensaje =   "";
         if(!pacientes.isEmpty())
         {
             for(Paciente pacientesd : pacientes)
             {
-            mensaje += pacientesd.toString();
+                mensaje+="\n"+pacientesd.toString();
+                Paciente objregistro = verificaciones.returnPacienteRegistro(pacientesd.getId());
+                for(HistoriaClinica historia : objregistro.getHistoriaclinica()){
+                mensaje += ("\nFecha: "+historia.getFechaHospitalizacion()+ "          Médico: "+historia.getMedicoencargado().getNombre()+historia.getMedicoencargado().getApellidos()
+                            +  " \nDescripción: " +historia.getDescripcion()+ "\n\n");
+            }
+            
              }
         }
         else

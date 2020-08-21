@@ -102,8 +102,17 @@ public class Proceso {
 
     public void buscarPaciente() {
         int id = ioData.solicitarEntero("Digite la identificación del paciente");
+        String mensaje="";
         if (verificaciones.validarPaciente(id)) {
-            ioData.mostrarResultado(verificaciones.returnPaciente(id).toString());
+            Paciente p= verificaciones.returnPaciente(id);
+            mensaje+="\n"+p.toString();
+                Paciente objregistro = verificaciones.returnPacienteRegistro(p.getId());
+                for(HistoriaClinica historia : objregistro.getHistoriaclinica()){
+                mensaje += ("\nFecha: "+historia.getFechaHospitalizacion()+ "          Médico: "+historia.getMedicoencargado().getNombre()+historia.getMedicoencargado().getApellidos()
+                            +  " \nDescripción: " +historia.getDescripcion()+ "\n\n");
+                 } 
+            ioData.mostrarResultado(mensaje);
+            
         } else {
             ioData.mostrarResultado("Paciente no encontrado");
         }
@@ -261,7 +270,7 @@ public class Proceso {
                     break;
                 }
                 case 3: {
-                    mostrarPacientes();
+                    ioData.mostrarResultado(mostrarPacientes());
                     break;
                 }
                 case 4: {
@@ -286,12 +295,12 @@ public class Proceso {
 
     public void consultarfechas() {
         ArrayList<HistoriaClinica> historia = new ArrayList<>();
-        String mensaje = "Las personas en ese rango de fecha son";
+        String mensaje = "Las personas en ese rango de fecha son:\n";
         if (hospitalproceso.getRegistro_paciente() == null) {
             ioData.mostrarResultado("No hay pacientes registrados");
         } else {
             ArrayList<Paciente> pacientes = hospitalproceso.getRegistro_paciente();
-            String fecha = ioData.solicitarNombre("Ingrese la primer fecha:  ");
+            String fecha = ioData.solicitarNombre("Ingrese la fecha:  ");
             while (!verificaciones.validarFecha(fecha)) {
                 fecha = ioData.solicitarNombre("ERROR!\nDigite la fecha de hospitalización en formato dd-mm-yyyy");
             }
@@ -306,7 +315,7 @@ public class Proceso {
 
             }
             for (int k = 0; k < historia.size(); k++) {
-                mensaje += historia.get(k).toString();
+                mensaje += historia.get(k).toString()+"\n";
 
             }
             ioData.mostrarResultado(mensaje);
