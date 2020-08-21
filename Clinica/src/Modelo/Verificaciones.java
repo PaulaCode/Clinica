@@ -52,12 +52,18 @@ public class Verificaciones {
     }
     public boolean validarIdentificacion(int identificacion)
     {
-        for(Persona objpersona : Proceso.lista_personas)
+        for(Persona objpersona : Proceso.hospitalproceso.getRegistro_paciente())
         {
             if(identificacion==objpersona.getId())
             {
                 return true;
             }
+        }
+        for(Medico objMedico : Proceso.hospitalproceso.getMedicos()){
+           if(identificacion==objMedico.getId())
+            {
+                return true;
+            } 
         }
         return false;
     }
@@ -196,6 +202,17 @@ public class Verificaciones {
             }
         }
         return null;
+    }
+    public Paciente returnPacienteRegistro(int id){
+        
+         for(Paciente objpaciente:hospitalproceso.getRegistro_paciente())
+        {
+            if(objpaciente.getId()==id)
+            {
+                return objpaciente;
+            }
+        }
+        return null; 
     }
     public Paciente returnPaciente(int id)
     {

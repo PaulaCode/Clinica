@@ -13,11 +13,8 @@ public class manejoarchivos
     }
 
     public static void crearArchivo(Hospital objhospital) {
-                ArrayList <Medico> medicos = objhospital.getMedicos();
+             
                 ArrayList <Paciente> pacientes = objhospital.getPacientes();
-                ArrayList <Paciente> pacienteshistorial = objhospital.getRegistro_paciente();
-                ArrayList <EPS> epshospital = objhospital.getEps();
-                ArrayList <Pisos> pisoshospital = objhospital.getPisos();
                 Cuidados cuidados = new Cuidados(); 
 		FileWriter flwriter = null;
 		try {
@@ -30,7 +27,7 @@ public class manejoarchivos
                         for(int i=0 ; i<pacientes.size(); i++){
                             if(i == pacientes.size()-1){
                                 bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+","
-                                +pacientes.get(i).getTipo_cuidado().getCantidadDecamas()+","+pacientes.get(i).getTipo_cuidado().getOcupacion()+",");
+                                +pacientes.get(i).getNumero_piso()+","+pacientes.get(i).getTipo_cuidado()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null");
                                 
@@ -40,7 +37,7 @@ public class manejoarchivos
                                 
                             } else{
                             bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+","
-                            +pacientes.get(i).getTipo_cuidado().getCantidadDecamas()+","+pacientes.get(i).getTipo_cuidado().getOcupacion()+",");
+                            +pacientes.get(i).getNumero_piso()+","+pacientes.get(i).getTipo_cuidado()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null\n");
                                 
@@ -55,7 +52,7 @@ public class manejoarchivos
                           
 			//cierra el buffer intermedio
 			bfwriter.close();
-			System.out.println("Archivo creado satisfactoriamente..");
+			System.out.println("Archivo pacientes creado satisfactoriamente..");
  
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,9 +96,8 @@ public class manejoarchivos
 				e.setTelefono(delimitar.nextInt());
 				e.setCorreo(delimitar.next());
                                 e.setTipobeneficio(delimitar.nextInt());
-                                obj_cuidado.setCantidadDecamas(delimitar.nextInt());
-                                obj_cuidado.setOcupacion(delimitar.nextInt());
-                                e.setTipo_cuidado(obj_cuidado);
+                                e.setNumero_piso(delimitar.nextInt());
+                                e.setTipo_cuidado(delimitar.nextInt());
                                 String a = (delimitar.next());
                                
                                if(a.equalsIgnoreCase("null")){
@@ -129,18 +125,18 @@ public class manejoarchivos
 		     
 	}
     
-    public static void crearHistoria(Hospital objhospital) {
+    public static void crearHistoria(Hospital objhospital, Proceso proceso) {
                 
                 ArrayList <Paciente> pacientes = objhospital.getRegistro_paciente();
                 ArrayList <HistoriaClinica> historias= new ArrayList<>();
-               File f = new File("historias.txt");
+                File f = new File("historias.txt");
 		FileWriter flwriter = null;
 		try {
 			//crea el flujo para escribir en el archivo
 			flwriter = new FileWriter(f,false);
 			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-                       
+
                    for(int i=0;i<pacientes.size();i++){               
                         historias = pacientes.get(i).getHistoriaclinica();
                     
@@ -157,12 +153,13 @@ public class manejoarchivos
                         }else{
                             bfwriter.write(historias.get(j).getFechaHospitalizacion()+","+historias.get(j).getMedicoencargado().getNombre()+","+historias.get(j).getMedicoencargado().getApellidos()+","+historias.get(j).getDescripcion()+"\n");
                         }
-                }
-                      
-                   }   
+                    }
+                 
+
+                }  
 			//cierra el buffer intermedio
 			bfwriter.close();
-			System.out.println("Archivo creado satisfactoriamente..");
+			System.out.println("Archivo historias creado satisfactoriamente..");
  
 		} catch (IOException e) {
 			e.printStackTrace(System.out);
@@ -216,7 +213,7 @@ public class manejoarchivos
                                 if(!objhospital.getRegistro_paciente().isEmpty()){
                                 for(int i=0; i<objhospital.getRegistro_paciente().size(); i++){
                                     if(cedula == objhospital.getRegistro_paciente().get(i).getId()){
-                                        System.out.println("WHY");
+                               
                                         objhospital.getRegistro_paciente().get(i).setHistoria(historia);
                                         si = true;
                                     }
@@ -224,7 +221,7 @@ public class manejoarchivos
                                 }
                                 if(si==false)
                                 {
-                                    System.out.println("Why 2 :8");
+                              
                                 e.setHistoria(historia);
                                 objhospital.getRegistro_paciente().add(e);
                                 }

@@ -1,5 +1,5 @@
-1,Jerson,Henao Sa,12-34-5678,Jess,Garcia g,Porque si
-1,Jerson,Henao Sa,98-87-5343,Jess,Garcia g,Pues ya
-1,Jerson,Henao Sa,12-34-6764,Jess,Garcia g,Ya por fin
-2,Paula,Sierra aq,12-34-5678,Jess,Garcia g,Porque si again
-2,Paula,Sierra aq,12-34-673,Jess,Garcia g,Pues ya salio de eso jejejejejejje
+1234,jess,f sd,12-34-5678,j,j d,si y no
+1234,jess,f sd,12-34-56,j,j d,me la pela
+1234,jess,f sd,20-23-4564,j,f d,A versi ya
+12346,j,f d,12-34-7453,j,j d,si u no
+12346,j,f d,12-34-5753,123,123 123,Avrla

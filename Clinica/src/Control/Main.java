@@ -29,8 +29,7 @@ public class Main {
         manejoarchivos.leerArchivo(Proceso.hospitalproceso);
         manejoarchivos.leerPisos(Proceso.hospitalproceso);
         manejoarchivos.leerArchivoHistorias(Proceso.hospitalproceso);
-        proceso.mostrarLista();
-     
+      
         int opc,claveCom;
 
 
@@ -40,7 +39,7 @@ public class Main {
                                         "\n2.Menú Recepción "+
                                         "\n3.Menú Médico "+
                                         "\n4.Salir "+ 
-                                        "\n\n.Digite la opción que desee ");
+                                        "\n\nDigite la opción que desee ");
         switch(opc){
             case 1:
                if(bandAdmin == false){
@@ -101,7 +100,7 @@ public class Main {
             case 4:
                
                manejoarchivos.crearArchivo(Proceso.hospitalproceso);
-               manejoarchivos.crearHistoria(Proceso.hospitalproceso);
+               manejoarchivos.crearHistoria(Proceso.hospitalproceso,proceso);
                manejoarchivos.almacenarPisos(Proceso.hospitalproceso.getPisos());
             System.exit(0);
                 break;
@@ -109,7 +108,7 @@ public class Main {
                 default: inOut.mostrarResultado("OPCION NO VALIDA, DIGITE NUEVAMENTE UNA OPCION");
             } 
           
-        }while(opc!=6);
+        }while(opc!=4);
         
     }
 
