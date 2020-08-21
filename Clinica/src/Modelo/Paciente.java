@@ -9,18 +9,20 @@ public class Paciente extends Persona {
     private ArrayList <HistoriaClinica> historiaclinica = new  ArrayList<>();
     private int Tipobeneficio=0;
     private EPS eps;
-    private Cuidados tipo_cuidado;
-    
+    private int numero_piso=0;
+    private int tipo_cuidado=0;
     public Verificaciones verificaciones = new Verificaciones();
     
     public Paciente() {
     }
 
-    public Paciente(int id, int edad, String nombre, String apellidos, int telefono, String correo,Persona acompañante,ArrayList <HistoriaClinica> historiaclinica,int Tipobeneficio) {
+    public Paciente(int id, int edad, String nombre, String apellidos, int telefono, String correo,Persona acompañante,ArrayList <HistoriaClinica> historiaclinica,int Tipobeneficio,int numero_piso,int tipo_cuidado) {
         super(id, edad, nombre, apellidos, telefono, correo);
         this.acompañante=acompañante;
         this.historiaclinica=historiaclinica;
         this.Tipobeneficio=Tipobeneficio;
+        this.numero_piso=numero_piso;
+        this.tipo_cuidado=tipo_cuidado;
     }
 
     public int getTipobeneficio() {
@@ -58,36 +60,54 @@ public class Paciente extends Persona {
         return eps;
     }
 
-    public Cuidados getTipo_cuidado() {
+    public int getNumero_piso() {
+        return numero_piso;
+    }
+
+    public void setNumero_piso(int numero_piso) {
+        this.numero_piso = numero_piso;
+    }
+
+    public int getTipo_cuidado() {
         return tipo_cuidado;
     }
 
-    public void setTipo_cuidado(Cuidados tipo_cuidado) {
+    public void setTipo_cuidado(int tipo_cuidado) {
         this.tipo_cuidado = tipo_cuidado;
     }
-    
+
+    public Verificaciones getVerificaciones() {
+        return verificaciones;
+    }
+
+    public void setVerificaciones(Verificaciones verificaciones) {
+        this.verificaciones = verificaciones;
+    }
+
     @Override
     public String toString(){
         Proceso obj_proceso= new Proceso();
         String mensaje="";
         mensaje+= super.toString();
         if(acompañante!= null){
-            mensaje+="Acompañante: "+acompañante.getNombre()+" \n";
+            mensaje+="\nAcompañante: "+acompañante.getNombre()+" \n";
         }
         for(int i=0;i<historiaclinica.size();i++){
             mensaje+=historiaclinica.toString();
          
         }
-        if(Tipobeneficio == 1 ){
-            mensaje+="Beneficio de cotizante al 70%";
-            
-        } 
-        else if(Tipobeneficio == 2 ){
-            mensaje+="Beneficio de beneficiaro al 50%";
-            
-        }
-        else if (Tipobeneficio ==0){
-            mensaje += "No aplica para el descuento por que no tiene eps ";
+        switch (Tipobeneficio) {
+            case 1:
+                mensaje+="\nBeneficio de cotizante al 70%";
+                break;
+            case 2:
+                mensaje+="\nBeneficio de beneficiaro al 50%";
+                break;
+            case 0:
+                mensaje += "\nNo aplica para el descuento por que no tiene eps ";
+                break;
+            default:
+                break;
         }
         return mensaje;
     }
