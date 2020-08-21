@@ -30,7 +30,7 @@ public class manejoarchivos
                         for(int i=0 ; i<pacientes.size(); i++){
                             if(i == pacientes.size()-1){
                                 bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+","
-                                +pacientes.get(i).getTipo_cuidado().getCantidadDecamas()+","+pacientes.get(i).getTipo_cuidado().getOcupacion()+",");
+                                +pacientes.get(i).getNumero_piso()+","+pacientes.get(i).getTipo_cuidado()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null");
                                 
@@ -40,7 +40,7 @@ public class manejoarchivos
                                 
                             } else{
                             bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getEdad()+","+pacientes.get(i).getNombre()+","+pacientes.get(i).getApellidos()+","+pacientes.get(i).getTelefono()+","+pacientes.get(i).getCorreo()+","+pacientes.get(i).getTipobeneficio()+","
-                            +pacientes.get(i).getTipo_cuidado().getCantidadDecamas()+","+pacientes.get(i).getTipo_cuidado().getOcupacion()+",");
+                            +pacientes.get(i).getNumero_piso()+","+pacientes.get(i).getTipo_cuidado()+",");
                             if(pacientes.get(i).getAcompañante() == null){
                                 bfwriter.write("null\n");
                                 
@@ -99,9 +99,8 @@ public class manejoarchivos
 				e.setTelefono(delimitar.nextInt());
 				e.setCorreo(delimitar.next());
                                 e.setTipobeneficio(delimitar.nextInt());
-                                obj_cuidado.setCantidadDecamas(delimitar.nextInt());
-                                obj_cuidado.setOcupacion(delimitar.nextInt());
-                                e.setTipo_cuidado(obj_cuidado);
+                                e.setNumero_piso(delimitar.nextInt());
+                                e.setTipo_cuidado(delimitar.nextInt());
                                 String a = (delimitar.next());
                                
                                if(a.equalsIgnoreCase("null")){
