@@ -128,7 +128,7 @@ public static void crearHistoria(Hospital objhospital) {
                 
                 ArrayList <Paciente> pacientes = objhospital.getPacientes();
                 ArrayList <HistoriaClinica> historias= new ArrayList<>();
-               File f = new File("historias.txt");
+                File f = new File("historias.txt");
 		FileWriter flwriter = null;
 		try {
 			//crea el flujo para escribir en el archivo
@@ -137,17 +137,27 @@ public static void crearHistoria(Hospital objhospital) {
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
                        
                    for(int i=0;i<pacientes.size();i++){
-                bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getNombre()+"\n");
+                historias=pacientes.get(i).getHistoriaclinica();
                     for(int j=0;j<pacientes.get(i).getHistoriaclinica().size();j++){
-                         bfwriter.write(pacientes.get(i).getId()+","+pacientes.get(i).getNombre()+",");
-                        
-                       
-                            if(j==pacientes.get(i).getHistoriaclinica().size()-1){
+                     
+                          bfwriter.write("\n"+pacientes.get(i).getId()+","+pacientes.get(i).getNombre()+"\n");
+                     if(i==pacientes.size()-1){
+                          if(j==pacientes.get(i).getHistoriaclinica().size()-1){
                                  bfwriter.write(historias.get(j).getFechaHospitalizacion()+","+historias.get(j).getDescripcion());
                            
                             }else{
                             bfwriter.write(historias.get(j).getFechaHospitalizacion()+","+historias.get(j).getDescripcion()+"\n");
-                        } 
+                        }
+                     }else{
+                          if(j==pacientes.get(i).getHistoriaclinica().size()-1){
+                                 bfwriter.write(historias.get(j).getFechaHospitalizacion()+","+historias.get(j).getDescripcion());
+                           
+                            }else{
+                            bfwriter.write(historias.get(j).getFechaHospitalizacion()+","+historias.get(j).getDescripcion()+"\n");
+                        }
+                     }
+                       
+                            
                     
                    
                 }

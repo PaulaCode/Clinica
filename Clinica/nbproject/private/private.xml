@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/nobody/Desktop/POO/git-clinica/Clinica/src/Modelo/Verificaciones.java</file>
             <file>file:/C:/Users/nobody/Desktop/POO/git-clinica/Clinica/src/Modelo/manejoarchivos.java</file>
@@ -11,6 +12,26 @@
             <file>file:/C:/Users/nobody/Desktop/POO/git-clinica/Clinica/src/Control/Main.java</file>
             <file>file:/C:/Users/nobody/Desktop/POO/git-clinica/Clinica/src/Modelo/HistoriaClinica.java</file>
             <file>file:/C:/Users/nobody/Desktop/POO/git-clinica/Clinica/src/Modelo/Proceso.java</file>
+=======
+<<<<<<< HEAD
+        <group>
+            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Pisos.java</file>
+            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Hospital.java</file>
+            <file>file:/media/paula/PAULA_SIERRA/Universidad/Segundo%20Semestre/Poo/Segundo%20Corte/PARCIAL_OFICIAL/Clinica/src/Modelo/Proceso.java</file>
+=======
+<<<<<<< HEAD
+        <group/>
+=======
+        <group>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/Paciente.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/Hospital.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/Cuidados.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Control/Main.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/manejoarchivos.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/Verificaciones.java</file>
+            <file>file:/home/frealgagu/Descargas/Parcial/Clinica/src/Modelo/Proceso.java</file>
+>>>>>>> 1d7b37e126cc35e92f41ebdef30012a171ef84f5
+>>>>>>> fa25b42d193d4758f0ce1bd498d698b1c571c98f
         </group>
     </open-files>
 </project-private>

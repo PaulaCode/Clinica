@@ -168,10 +168,13 @@ public class Proceso {
                     } while (opc1 != 4);
 
                     break;
-                case 6:
+                case 6: ioData.mostrarResultado(hospitalproceso.mostrarPisos());
+                    break;
+                case 7:
+                   
                     break;
             }
-        } while (opc != 6);
+        } while (opc != 7);
 
     }
 
@@ -182,7 +185,8 @@ public class Proceso {
                     +"2. Otorgar salida\n"+
                     "3. Mostrar Pacientes\n"
                     +"4. Consultar Paciente\n"
-                    +"5. Salir ";
+                    +"5. Consultar fecha \n"
+                    +"6. Salir ";
             int opcion=0;  
             do
             {
@@ -207,6 +211,10 @@ public class Proceso {
                      break;
                  }
                  case 5:{
+                     consultarfechas();
+                     break;
+                 }
+                   case 6:{
                      break;
                  }
                  default:{
@@ -217,7 +225,34 @@ public class Proceso {
             }
         } while (opcion != 5);
     }
-
+public void consultarfechas(){
+    ArrayList<HistoriaClinica> historia = new ArrayList<>();
+    String mensaje="Las personas en ese rango de fecha son";
+    if(hospitalproceso.getRegistro_paciente()== null){
+        ioData.mostrarResultado("No hay pacientes registrados");
+    }else{
+        ArrayList<Paciente> pacientes= hospitalproceso.getRegistro_paciente();
+       String fecha= ioData.solicitarNombre("Ingrese la primer fecha:  ");
+        while (!verificaciones.validarFecha(fecha)) {
+            fecha=ioData.solicitarNombre("ERROR!\nDigite la fecha de hospitalización en formato dd-mm-yyyy");
+        }
+       
+         for(int i=0;i<pacientes.size();i++){
+             for(int j=0;j<pacientes.get(i).getHistoriaclinica().size();j++){
+                 
+                 if(pacientes.get(i).getHistoriaclinica().get(j).getFechaHospitalizacion().equalsIgnoreCase(fecha)){
+                     historia.add(pacientes.get(i).getHistoriaclinica().get(j));
+                 }
+             }
+             
+         }
+         for(int k=0;k<historia.size();k++){
+             mensaje+=historia.get(k).toString();
+             
+         }
+         ioData.mostrarResultado(mensaje);
+    }
+}
     public void ingresarMedico() {
 
         Medico obj_Medico = new Medico();
